@@ -46,9 +46,7 @@ class Usuario:
         }
 
     def __hashPwd(self, password):
-        return hashlib.sha256(
-                password.encode()
-            ).hexdigest()
+        return hashlib.sha256(password.encode()).hexdigest()
 
 users = [
     {
@@ -70,6 +68,7 @@ users = [
 
 index = 1
 usersList = []
+
 for user in users:
     usuario = Usuario(
         index,
@@ -77,6 +76,7 @@ for user in users:
         user["email"],
         user["password"]
     )
+
     usersList.append(usuario.toJson())
     index += 1
 
