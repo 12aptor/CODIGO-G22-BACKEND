@@ -20,7 +20,7 @@ mi_clase = MiClase()
 y un método que devuelva la marca y el modelo del vehiculo"""
 
 class Vehiculo:
-    def __init__(self, _marca, _modelo, _color) -> None:
+    def __init__(self, _marca, _modelo, _color):
         self.marca = _marca
         self.modelo = _modelo
         self.color = _color
@@ -34,10 +34,15 @@ class Vehiculo:
         return f"Vehiculo {self.marca} {self.modelo}"
     
     def actualizarMarca(self, _marca):
+        print(self.__metodoPrivado())
         self.marca = _marca
+
+    # Los métodos privados son métodos que solo pueden ser llamados desde la clase y se definen con __
+    def __metodoPrivado(self):
+        return "Soy un método privado"
 
 vehiculo = Vehiculo("Ford", "Fiesta", "Gris")
 
 # print(vehiculo.getMarcaModel())
 vehiculo.actualizarMarca("Chevrolet")
-print(vehiculo)
+# print(vehiculo)
