@@ -21,3 +21,12 @@ miNumero = 20
 _mi_numero = 20
 MINUMERO = 20
 miNumero20 = 20
+
+# Variables locales
+def miFuncion():
+    miVariable = 10
+
+miVariable = 20
+print(miVariable)
+
+miFuncion()
