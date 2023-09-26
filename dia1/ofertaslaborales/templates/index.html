@@ -1,18 +1,10 @@
 {% extends 'layout.html' %}
+{% import 'macros.html' as macros %}
 {% block content %}
-    <h1>Ofertas Laborales</h1>
+    <h1>{{titulo}}</h1>
     <div class="row">
         {% for oferta in ofertas %}
-        <div class="col-sm">
-            <div class="card" style="width: 18rem;">
-                <img src="{{oferta.imagen}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{oferta.titulo}}</h5>
-                  <p class="card-text">{{oferta.descripcion}}</p>
-                  <a href="#" class="btn btn-primary">MAS INFO...</a>
-                </div>
-              </div>
-        </div>
+          {{macros.mostrar_oferta(oferta)}}
         {% endfor %}
     </div>
 {% endblock %}
