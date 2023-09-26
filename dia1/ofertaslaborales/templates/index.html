@@ -1,1 +1,9 @@
-<h1>{{titulo}}</h1>
+{% extends 'layout.html' %}
+{% block content %}
+    <h1>Ofertas Laborales</h1>
+    <ul>
+        {% for oferta in ofertas %}
+            <li>{{oferta.titulo}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -17,6 +17,12 @@ def index():
             "descripcion":"Buscamos backend developer con python , buena paga"
         }
     ]
-    return render_template('index.html',titulo=titulo)
+    
+    context = {
+        "titulo":titulo,
+        "ofertas":lista_ofertas
+    }
+    
+    return render_template('index.html',**context)
 
 app.run(debug=True)
