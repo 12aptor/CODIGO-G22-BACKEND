@@ -12,9 +12,14 @@ def index():
             "descripcion":"Buscamos frontend developer con experiencia en react"
         },
         {
-            "titulo":"BACKEN DEVELOPER PYTHON",
+            "titulo":"BACKEND DEVELOPER PYTHON",
             "imagen":"https://beapythondev.files.wordpress.com/2019/06/python.png?w=365&h=365&crop=1",
             "descripcion":"Buscamos backend developer con python , buena paga"
+        },
+        {
+            "titulo":"MOBILE DEVELOPER",
+            "imagen":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTtE3yAbQtbA4oCsav_aOv28n57jcFsMI5FZvgOQVh8WFE99F4CkINj_PvDX-vYV5TMEw&usqp=CAU",
+            "descripcion":"Buscamos Programador de apps mobile flutter"
         }
     ]
     
@@ -24,5 +29,9 @@ def index():
     }
     
     return render_template('index.html',**context)
+
+@app.route('/detalle')
+def detalle():
+    return render_template('detalle.html')
 
 app.run(debug=True)
