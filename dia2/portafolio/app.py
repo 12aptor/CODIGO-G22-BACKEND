@@ -1,3 +1,4 @@
+import json
 import requests
 from flask import Flask,request,render_template
 
@@ -5,6 +6,10 @@ app = Flask(__name__)
 
 URL_GITHUB = 'https://api.github.com/users/cesarmayta'
 
+def leer_json(archivo_json):
+    with open(archivo_json,'r') as archivo:
+        data = json.load(archivo)
+    return data
 
 @app.route('/')
 def index():
@@ -22,7 +27,11 @@ def index():
 
 @app.route('/cv')
 def curriculum():
-    return render_template('cv.html')
+    data = leer_json('resources/experiencia.json')
+    context = {
+        'experiencias':data
+    }
+    return render_template('cv.html',**context)
 
 @app.route('/proyectos')
 def proyectos():
