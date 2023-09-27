@@ -24,4 +24,13 @@ def index():
 def curriculum():
     return render_template('cv.html')
 
+@app.route('/proyectos')
+def proyectos():
+    return render_template('proyectos.html')
+
+@app.route('/contacto')
+def contacto():
+    return render_template('contacto.html')
+
+
 app.run(debug=True)
