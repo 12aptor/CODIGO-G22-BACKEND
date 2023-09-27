@@ -20,4 +20,8 @@ def index():
     }
     return render_template('index.html',**context)
 
+@app.route('/cv')
+def curriculum():
+    return render_template('cv.html')
+
 app.run(debug=True)
