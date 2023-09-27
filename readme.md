@@ -2,8 +2,6 @@
   <a href="https://www.tecsup.edu.pe/desarrolloweb/" target="blank"><img src="https://www.tecsup.edu.pe/desarrolloweb/img/logo-cod.svg" width="320" alt="CodiGo Logo" /></a>
 </p>
 
----
-
 Hola! 👋🏻 las ramas están organizadas por semana, es decir **CADA RAMA SERA UNA SEMANA**
 
 <ul>
