@@ -27,9 +27,11 @@ def index():
 
 @app.route('/cv')
 def curriculum():
-    data = leer_json('resources/experiencia.json')
+    data_experiencia = leer_json('resources/experiencia.json')
+    data_educacion = leer_json('resources/educacion.json')
     context = {
-        'experiencias':data
+        'experiencias':data_experiencia,
+        'estudios':data_educacion
     }
     return render_template('cv.html',**context)
 
