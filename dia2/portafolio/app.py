@@ -1,0 +1,23 @@
+import requests
+from flask import Flask,request,render_template
+
+app = Flask(__name__)
+
+URL_GITHUB = 'https://api.github.com/users/cesarmayta'
+
+
+@app.route('/')
+def index():
+    data = requests.get(URL_GITHUB).json()
+    print(data)
+    context = {
+        'nombre':data['name'],
+        'biografia':data['bio'],
+        'imagen':data['avatar_url'],
+        'ubicacion':data['location'],
+        'twitter':data['twitter_username'],
+        'github':data['html_url']
+    }
+    return render_template('index.html',**context)
+
+app.run(debug=True)
