@@ -1,8 +1,11 @@
 import json
 import requests
 from flask import Flask,request,render_template
+from firebase import FirebaseAdmin
 
 app = Flask(__name__)
+
+fb = FirebaseAdmin()
 
 URL_GITHUB = 'https://api.github.com/users/cesarmayta'
 
@@ -27,8 +30,8 @@ def index():
 
 @app.route('/cv')
 def curriculum():
-    data_experiencia = leer_json('resources/experiencia.json')
-    data_educacion = leer_json('resources/educacion.json')
+    data_experiencia = fb.get_collection('experiencia')
+    data_educacion = fb.get_collection('estudios')
     context = {
         'experiencias':data_experiencia,
         'estudios':data_educacion
