@@ -18,14 +18,7 @@ def leer_json(archivo_json):
 def index():
     data = requests.get(URL_GITHUB).json()
     print(data)
-    context = {
-        'nombre':data['name'],
-        'biografia':data['bio'],
-        'imagen':data['avatar_url'],
-        'ubicacion':data['location'],
-        'twitter':data['twitter_username'],
-        'github':data['html_url']
-    }
+    context = fb.get_document('perfil','MKuNXNh1wdxyWZUV5MkH')
     return render_template('index.html',**context)
 
 @app.route('/cv')

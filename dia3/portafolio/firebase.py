@@ -19,5 +19,9 @@ class FirebaseAdmin:
             
         return list_collection
     
+    def get_document(self,col_name,id):
+        doc_value = self.db.collection(col_name).document(id).get()
+        return doc_value.to_dict()
+    
 #fs = FirebaseAdmin()
 #print(fs.get_collection('estudios'))
