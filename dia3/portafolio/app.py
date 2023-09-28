@@ -1,9 +1,10 @@
 import json
 import requests
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,session
 from firebase import FirebaseAdmin
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'qwerty123'
 
 fb = FirebaseAdmin()
 
@@ -16,9 +17,18 @@ def leer_json(archivo_json):
 
 @app.route('/')
 def index():
-    data = requests.get(URL_GITHUB).json()
-    print(data)
-    context = fb.get_document('perfil','MKuNXNh1wdxyWZUV5MkH')
+    #data = requests.get(URL_GITHUB).json()
+    #print(data)
+    perfil = fb.get_document('perfil','MKuNXNh1wdxyWZUV5MkH')
+    context = {
+        'nombre':perfil['nombre'],
+        'biografia':perfil['biografia'],
+        'imagen':perfil['imagen'],
+        'ubicacion':perfil['ubicacion']
+    }
+    session['logo'] = perfil['nombre']
+    session['curriculum_pdf'] = perfil['curriculum']
+    
     return render_template('index.html',**context)
 
 @app.route('/cv')
