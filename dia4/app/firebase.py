@@ -5,7 +5,7 @@ from firebase_admin import firestore
 class FirebaseAdmin:
     
     def __init__(self):
-        cred = credentials.Certificate('token.json')
+        cred = credentials.Certificate('app/token.json')
         firebase_admin.initialize_app(cred)
         self.db = firestore.client()
         
