@@ -10,3 +10,23 @@ def index():
     session['nombre'] = context['nombre']
     session['curriculum'] = context['curriculum']
     return render_template('portafolio/index.html',**context)
+
+@portafolio.route('/cv')
+def curriculum():
+    data_experiencia = fb.get_collection('experiencia')
+    data_estudios = fb.get_collection('estudios')
+    
+    context = {
+        'experiencias':data_experiencia,
+        'estudios':data_estudios
+    }
+    
+    return render_template('portafolio/cv.html',**context)
+
+@portafolio.route('/proyectos')
+def proyectos():
+    return render_template('portafolio/proyectos.html')
+
+@portafolio.route('/contacto')
+def contacto():
+    return render_template('portafolio/contacto.html')
