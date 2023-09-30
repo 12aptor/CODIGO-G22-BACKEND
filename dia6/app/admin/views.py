@@ -1,6 +1,13 @@
 from flask import render_template,request,redirect,url_for
 from . import admin
 
+import pyrebase
+from app.firebase_config import firebaseConfig
+
+fb_app = pyrebase.initialize_app(firebaseConfig)
+auth = fb_app.auth()
+
+
 from app import fb
 
 from .forms import ExperienciaForm
