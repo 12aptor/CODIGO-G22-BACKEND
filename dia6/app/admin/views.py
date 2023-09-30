@@ -1,5 +1,6 @@
-from flask import render_template,request,redirect,url_for,flash
+from flask import render_template,request,redirect,url_for,flash,session
 from . import admin
+from functools import wraps
 
 import pyrebase
 from app.firebase_config import firebaseConfig
@@ -12,6 +13,15 @@ from app import fb
 
 from .forms import ExperienciaForm
 
+""" decorador para validar token """
+def token_required(view_func):
+    @wraps(view_func)
+    def decorated_view(*args,**kwargs):
+        if 'token' not in session:
+            return redirect(url_for('admin.login'))
+        return view_func(*args,**kwargs)
+    return decorated_view
+
 """ LOGIN DE USUARIOS """
 
 @admin.route('/login',methods=['GET','POST'])
@@ -22,6 +32,7 @@ def login():
         try:
             usuario = auth.sign_in_with_email_and_password(email,password)
             data = auth.get_account_info(usuario['idToken'])
+            session['token'] = usuario['idToken']
             return redirect(url_for('admin.index'))
         
         except Exception as error:
@@ -30,6 +41,7 @@ def login():
     return render_template('admin/login.html')
 
 @admin.route('/')
+@token_required
 def index():
     return render_template('admin/index.html')
 
@@ -41,6 +53,7 @@ U - UPDATE
 D - DELETE
 """
 @admin.route('/experiencia',methods=['GET','POST'])
+@token_required
 def experiencia():
     """
     LEER Y CREAR EXPERIENCIAS
@@ -69,6 +82,7 @@ def experiencia():
     return render_template('admin/experiencia.html',**context)
 
 @admin.route('/experiencia/<id>',methods=['GET','POST'])
+@token_required
 def experiencia_update(id=''):
     data = fb.get_document('experiencia',id)
     form = ExperienciaForm(data=data)
@@ -94,6 +108,7 @@ def experiencia_update(id=''):
     return render_template('admin/experiencia.html',**context)
 
 @admin.route('/experiencia/del/<id>')
+@token_required
 def experiencia_delete(id=''):
     result = fb.delete_document('experiencia',id)
     if(result):
