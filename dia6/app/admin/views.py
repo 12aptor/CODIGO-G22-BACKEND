@@ -19,6 +19,14 @@ def token_required(view_func):
     def decorated_view(*args,**kwargs):
         if 'token' not in session:
             return redirect(url_for('admin.login'))
+        
+        try:
+            data = auth.get_account_info(session['token'])
+            print(data)
+        except Exception as error:
+            print(error)
+            return redirect(url_for('admin.login'))
+        
         return view_func(*args,**kwargs)
     return decorated_view
 
@@ -39,6 +47,12 @@ def login():
             flash("datos de acceso invalidos")
             
     return render_template('admin/login.html')
+
+@admin.route('/logout')
+@token_required
+def logout():
+    session.pop('token')
+    return redirect(url_for('admin.index'))
 
 @admin.route('/')
 @token_required
