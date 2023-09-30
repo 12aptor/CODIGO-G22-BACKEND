@@ -1,4 +1,4 @@
-from flask import render_template,request
+from flask import render_template,request,redirect,url_for
 from . import admin
 
 from app import fb
@@ -34,6 +34,7 @@ def experiencia():
         }
         doc_experiencia = fb.insert_document('experiencia',new_data)
         print(doc_experiencia)
+        return redirect(url_for('admin.experiencia'))
     
     data = fb.get_collection('experiencia')
     context = {
@@ -41,4 +42,29 @@ def experiencia():
         'form':experiencia_form
     }
     print(context)
+    return render_template('admin/experiencia.html',**context)
+
+@admin.route('/experiencia/<id>',methods=['GET','POST'])
+def experiencia_update(id=''):
+    data = fb.get_document('experiencia',id)
+    form = ExperienciaForm(data=data)
+    
+    if form.validate_on_submit():
+        data_update = {
+            'puesto':form.puesto.data,
+            'periodo':form.periodo.data,
+            'empresa':form.empresa.data,
+            'ubicacion':form.ubicacion.data,
+            'resumen':form.resumen.data
+        }
+        update_exp = fb.update_document('experiencia',id,data_update)
+        
+        return redirect(url_for('admin.experiencia'))
+    
+    lista_exp = fb.get_collection('experiencia')
+    context = {
+        'experiencias':lista_exp,
+        'form':form
+    }
+    
     return render_template('admin/experiencia.html',**context)

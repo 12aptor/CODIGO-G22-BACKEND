@@ -15,6 +15,7 @@ class FirebaseAdmin:
         doc_values = collection_values.get()
         for doc in doc_values:
             dic_collection = doc.to_dict()
+            dic_collection.update({'id':doc.id})
             list_collection.append(dic_collection)
             
         return list_collection
@@ -25,6 +26,10 @@ class FirebaseAdmin:
     
     def insert_document(self,col_name,data):
         doc_value = self.db.collection(col_name).document().set(data)
+        return doc_value
+    
+    def update_document(self,col_name,id,data):
+        doc_value = self.db.collection(col_name).document(id).set(data)
         return doc_value
     
 #fs = FirebaseAdmin()
