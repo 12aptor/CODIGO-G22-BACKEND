@@ -1,0 +1,46 @@
+{% extends 'admin/layout.html' %}
+{% from 'bootstrap4/form.html' import render_form %}
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Experiencias</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+        <li class="breadcrumb-item active">Experiencias</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-body">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">periodo</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Ubicación</th>
+                    <th scope="col">Puesto</th>
+                    <th>...</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for experiencia in experiencias %}
+                        <tr>
+                            <td>{{experiencia.periodo}}</td>
+                            <td>{{experiencia.empresa}}</td>
+                            <td>{{experiencia.ubicacion}}</td>
+                            <td>{{experiencia.puesto}}</td>
+                            <td>
+                                <a href="/admin/experiencia/{{experiencia.id}}" class="btn btn-success">Editar</a>
+                                <a href="#" class="btn btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            {{render_form(form)}}
+        </div>
+    </div>
+    <div style="height: 100vh"></div>
+</div>
+{% endblock %}
