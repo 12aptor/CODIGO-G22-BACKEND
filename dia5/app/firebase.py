@@ -23,5 +23,9 @@ class FirebaseAdmin:
         doc_value = self.db.collection(col_name).document(id).get()
         return doc_value.to_dict()
     
+    def insert_document(self,col_name,data):
+        doc_value = self.db.collection(col_name).document().set(data)
+        return doc_value
+    
 #fs = FirebaseAdmin()
 #print(fs.get_collection('estudios'))
