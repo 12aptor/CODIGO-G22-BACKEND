@@ -5,6 +5,12 @@ from app import fb
 
 from .forms import ExperienciaForm
 
+""" LOGIN DE USUARIOS """
+
+@admin.route('/login',methods=['GET','POST'])
+def login():
+    return render_template('admin/login.html')
+
 @admin.route('/')
 def index():
     return render_template('admin/index.html')
