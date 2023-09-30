@@ -68,3 +68,9 @@ def experiencia_update(id=''):
     }
     
     return render_template('admin/experiencia.html',**context)
+
+@admin.route('/experiencia/del/<id>')
+def experiencia_delete(id=''):
+    result = fb.delete_document('experiencia',id)
+    if(result):
+        return redirect(url_for('admin.experiencia'))

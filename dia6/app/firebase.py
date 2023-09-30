@@ -32,5 +32,9 @@ class FirebaseAdmin:
         doc_value = self.db.collection(col_name).document(id).set(data)
         return doc_value
     
+    def delete_document(self,col_name,id):
+        self.db.collection(col_name).document(id).delete()
+        return True
+    
 #fs = FirebaseAdmin()
 #print(fs.get_collection('estudios'))
