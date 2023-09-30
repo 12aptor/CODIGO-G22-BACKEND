@@ -3,6 +3,8 @@ from . import admin
 
 from app import fb
 
+from .forms import ExperienciaForm
+
 @admin.route('/')
 def index():
     return render_template('admin/index.html')
@@ -20,8 +22,11 @@ def experiencia():
     READ EXPERIENCIAS
     """
     data = fb.get_collection('experiencia')
+    experiencia_form = ExperienciaForm()
+    
     context = {
-        'experiencias':data
+        'experiencias':data,
+        'form':experiencia_form
     }
     print(context)
     return render_template('admin/experiencia.html',**context)
