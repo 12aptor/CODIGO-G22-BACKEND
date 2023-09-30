@@ -16,6 +16,17 @@ from .forms import ExperienciaForm
 
 @admin.route('/login',methods=['GET','POST'])
 def login():
+    if request.method == "POST":
+        email = request.form['email']
+        password = request.form['password']
+        try:
+            usuario = auth.sign_in_with_email_and_password(email,password)
+            print(usuario)
+            data = auth.get_account_info(usuario['idToken'])
+            print(data)
+        except Exception as error:
+            print("Error : ",error)
+            
     return render_template('admin/login.html')
 
 @admin.route('/')
