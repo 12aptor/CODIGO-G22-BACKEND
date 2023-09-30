@@ -20,8 +20,8 @@ Hola! 👋🏻 las ramas están organizadas por semana, es decir **CADA RAMA SER
         <li>dia2:  templates con jinja2</li>
         <li>dia3 : flask y firebase</li>
         <li>dia4 : appfactory(blueprints)</li>
-        <li>dia5 : formularios con flask</li>
-        <li>dia6 : despliegue de aplicación</li>
+        <li>dia5 : formularios con flask, crud con flask y firebase</li>
+        <li>dia6 : login de usuarios con firebase y flask</li>
       </ul>
   </li>
   <li>SEMANA 03 : BASE DE DATOS RELACIONALES CON FLASK : 
@@ -29,7 +29,7 @@ Hola! 👋🏻 las ramas están organizadas por semana, es decir **CADA RAMA SER
         <li>dia1 : fundamentos de bd y mysql</li>
         <li>dia2 : modelado y normalización</li>
         <li>dia3 : flask y mysql</li>
-        <li>dia4 : creación de api rest con flask</li>
+        <li>dia4 : creación de api rest con flask y mysql</li>
         <li>dia5 : flask y sqlalchemy</li>
       </ul>
   </li>
