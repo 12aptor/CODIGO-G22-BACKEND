@@ -6,3 +6,18 @@ show databases
 
 #para crear una nueva base de datos
 create database nombre_base_datos
+
+#ingresar a una base de datos
+use nombre_base_datos
+
+#para crear una tabla
+CREATE TABLE alumno(
+nombre varchar(100),
+email varchar(100)
+)
+
+#para insertar datos
+insert into alumno values('tu nombre','tuemail');
+
+#para ver los datos
+select * from alumno
