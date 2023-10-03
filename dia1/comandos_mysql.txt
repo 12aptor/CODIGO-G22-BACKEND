@@ -1,0 +1,8 @@
+#para conectarse a mysql
+mysql -h localhost -u root -p
+
+#para mostrar las base de datos existentes
+show databases
+
+#para crear una nueva base de datos
+create database nombre_base_datos
