@@ -1,4 +1,32 @@
 -- RELACIONES
+CREATE TABLE `alumno` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombres` varchar(200) NOT NULL,
+  `apellidos` varchar(200) NOT NULL,
+  `dni` varchar(20) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `telefono` varchar(100) DEFAULT NULL,
+  `pais` varchar(100) DEFAULT 'Perú',
+  PRIMARY KEY (`id`)
+)
+
+insert into alumno(nombres,apellidos,dni)
+values ('César','Mayta','12345678');
+
+insert into alumno(nombres,apellidos,dni,pais)
+values('Ana','Martinez','8998833','Colombia');
+
+insert into alumno(nombres,apellidos,dni)
+values 
+('Jorge','Lopez','111'),
+('Luisa','Fernandez','222'),
+('Carlos','Torres','333'),
+('Anibal','Guzman','444'),
+('Pedro','Tudela','555'),
+('Vanessa','Flores','666'),
+('Armando','Corrales','777'),
+('Sofia','Lopez','888');
+
 create table nota(
 	id int(11) not null primary key auto_increment,
 	alumno_id int(11) not null,
