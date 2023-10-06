@@ -26,4 +26,26 @@ def index():
     }
     return render_template('index.html',**context)
 
+@app.route('/asistencia/<cid>')
+def asistencia(cid):
+    cursor_asistencia = mysql.connection.cursor()
+    sql_asistencia = """
+    select tbl_alumno.alumno_nombre as alumno,
+    tbl_asistencia.asistencia_fecha as fecha,
+    tbl_asistencia.asistencia_valor as valor
+    from
+    tbl_alumno
+    inner join tbl_asistencia on tbl_asistencia.alumno_id = tbl_alumno.alumno_id 
+    where tbl_asistencia.curso_id = """ + cid  + """
+    """
+    cursor_asistencia.execute(sql_asistencia)
+    data_asistencia = cursor_asistencia.fetchall()
+    cursor_asistencia.close()
+    
+    context = {
+        'asistencia':data_asistencia
+    }
+    
+    return render_template('index.html',**context)
+
 app.run(debug=True)

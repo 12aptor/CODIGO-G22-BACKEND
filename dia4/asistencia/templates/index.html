@@ -17,7 +17,7 @@
           <ul class="navbar-nav">
             {% for curso in cursos %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{curso.curso_nombre}}</a>
+                    <a class="nav-link" href="/asistencia/{{curso.curso_id}}">{{curso.curso_nombre}}</a>
                 </li>
             {% endfor %}
           </ul>
@@ -25,7 +25,20 @@
       </nav>
 
     <h1>REGISTROS</h1>
-
+    <table class="table table-hover">
+        <tr>
+            <th>Alumno</th>
+            <th>Fecha</th>
+            <th>Asistencia</th>
+        </tr>
+        {% for asis in asistencia %}
+            <tr>
+                <td>{{asis.alumno}}</td>
+                <td>{{asis.fecha}}</td>
+                <td>{{asis.valor}}</td>
+            </tr>
+        {% endfor %}
+    </table>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
