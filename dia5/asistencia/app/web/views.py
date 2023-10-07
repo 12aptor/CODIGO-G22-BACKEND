@@ -16,6 +16,6 @@ def cursos():
     cursor.close()
     print(data_cursos)
     context = {
-        'data':data_cursos
+        'cursos':data_cursos
     }
     return render_template('cursos.html',**context)
