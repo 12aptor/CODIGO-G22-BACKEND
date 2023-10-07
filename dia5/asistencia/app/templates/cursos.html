@@ -10,6 +10,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
+                        <th>...</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -17,6 +18,9 @@
                             <tr>
                                 <th scope="row">{{curso.id}}</th>
                                 <td>{{curso.nombre}}</td>
+                                <td>
+                                    <a href="/cursos/{{curso.id}}" class="btn btn-success">Editar</a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
