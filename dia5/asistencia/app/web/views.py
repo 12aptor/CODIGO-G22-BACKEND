@@ -64,3 +64,12 @@ def cursos_editar(id):
     }
     
     return render_template('cursos.html',**context)
+
+@web.route('/cursos/del/<id>',methods=['GET'])
+def cursos_eliminar(id):
+    cursor = db.cursor()
+    sql_eliminar = "delete from tbl_curso where curso_id="+id
+    cursor.execute(sql_eliminar)
+    db.commit()
+    cursor.close()
+    return redirect('/cursos')
