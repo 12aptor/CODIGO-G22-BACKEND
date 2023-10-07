@@ -49,6 +49,15 @@ def cursos_editar(id):
     
     form = CursoForm(data=data[0])
     
+    if form.validate_on_submit():
+        nombre = form.nombre.data
+        cursor_update = db.cursor()
+        sql_update = "update tbl_curso set curso_nombre = '"+nombre+"' where curso_id="+id
+        cursor_update.execute(sql_update)
+        db.commit()
+        cursor_update.close()
+        return redirect('/cursos')
+    
     context = {
         'cursos':mostrar_cursos(),
         'form':form
