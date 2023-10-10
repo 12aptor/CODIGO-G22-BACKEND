@@ -61,5 +61,45 @@ def get_tarea_by_id(id):
     
     return jsonify(data[0])
 
+@app.route('/tarea/<id>',methods=['PUT'])
+def update_tarea(id):
+    text = request.json['text']
+    completed = request.json['completed']
+    
+    sql_update = """
+                 update tbl_tarea set text = '"""+text+"""',
+                 completed='"""+ str(completed) +"""'
+                 where id = """+id
+    
+    cursor = mysql.connection.cursor()
+    cursor.execute(sql_update)
+    mysql.connection.commit()
+    cursor.close()
+    
+    context = {
+        'status':True,
+        'message':"registro actualizado"
+    }
+    
+    return jsonify(context)
+
+
+@app.route('/tarea/<id>',methods=['DELETE'])
+def delete_tarea(id):
+    sql_delete =  "delete from tbl_tarea where id="+id
+    cursor = mysql.connection.cursor()
+    cursor.execute(sql_delete)
+    mysql.connection.commit()
+    cursor.close()
+    
+    context = {
+        'status':True,
+        'message':"registro eliminado"
+    }
+    
+    return jsonify(context)
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
+    
