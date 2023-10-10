@@ -7,9 +7,32 @@ class App extends React.Component {
     super(props)
     this.state = (
       {
-        tareas : []
+        tareas : [],
+        text:'',
+        completed:0
       }
     )
+    this.cambioText = this.cambioText.bind(this)
+    this.agregarTarea = this.agregarTarea.bind(this)
+  }
+
+  cambioText(e){
+    this.setState({
+      text : e.target.value
+    })
+  }
+
+  agregarTarea(e){
+    e.preventDefault()
+    console.log("agregando tarea...")
+    const data = {
+      text : this.state.text,
+      completed : this.state.completed
+    }
+    axios.post('http://localhost:5000/tarea',data)
+    .then(res=>{
+      console.log("respuesta: ",res.data)
+    })
   }
 
   componentDidMount(){
@@ -17,11 +40,29 @@ class App extends React.Component {
     axios.get('http://localhost:5000/tarea')
     .then(res=>{
       console.log(res.data)
+      this.setState({
+        tareas:res.data
+      })
     })
   }
   render(){
     return(
-      <h1>Hola mundo React</h1>
+      <div>
+          <h1>Lista de Tareas</h1>
+          <form onSubmit={this.agregarTarea}>
+            <input type="text" value={this.state.text}
+            onChange={this.cambioText}/>
+            <input type="submit" value="Agregar Tarea"/>
+          </form>
+          <ul>
+            {this.state.tareas.map((tarea,index)=>{
+              return(
+                <li key={index}>{tarea.text}</li>
+              )
+            })}
+          </ul>
+      </div>
+      
     )
   }
 }
