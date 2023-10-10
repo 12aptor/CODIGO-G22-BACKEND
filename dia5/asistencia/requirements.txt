@@ -1,5 +1,0 @@
-flask
-mysql-connector-python
-python-dotenv
-bootstrap-flask
-Flask-WTF
