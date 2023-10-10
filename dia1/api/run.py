@@ -29,5 +29,37 @@ def get_tarea():
     
     return jsonify(data)
 
+@app.route('/tarea',methods=['POST'])
+def set_tarea():
+    text = request.json['text']
+    completed = request.json['completed']
+    cursor = mysql.connection.cursor()
+
+    sql_insert = """
+                 insert into tbl_tarea(text,completed)
+                 values('"""+ text +"""','"""+ str(completed) +"""')
+                 """
+                 
+    cursor.execute(sql_insert)
+    mysql.connection.commit()
+    cursor.close()
+    
+    context = {
+        'status':True,
+        'message':'registro exitoso'
+    }
+    
+    return jsonify(context)
+
+@app.route('/tarea/<id>')
+def get_tarea_by_id(id):
+    sql_tarea = "select text,completed from tbl_tarea where id ="+id
+    cursor = mysql.connection.cursor()
+    cursor.execute(sql_tarea)
+    data = cursor.fetchall()
+    cursor.close()
+    
+    return jsonify(data[0])
+
 if __name__ == '__main__':
     app.run(debug=True)
