@@ -1,8 +1,10 @@
 from flask import Flask,jsonify,request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 app.app_context().push()
 
@@ -62,17 +64,55 @@ def get_tarea():
     data = Tarea.query.all() #select * from tarea
     #serialización
     data_schema = TareaSchema(many=True)
-    """lista_tareas = []
-    for tarea in data:
-        dic_tarea = {
-            'id':tarea.id,
-            'descripcion':tarea.descripcion
-        }
-        lista_tareas.append(dic_tarea)"""
-    
     context = {
         'status':True,
         'content:':data_schema.dump(data)
+    }
+    
+    return jsonify(context)
+
+@app.route('/tarea/<id>',methods=['GET'])
+def get_tarea_by_id(id):
+    data = Tarea.query.get(id) #select * from tarea where id = 
+    data_schema = TareaSchema()
+    
+    context = {
+        'status':True,
+        'content':data_schema.dump(data)
+    }
+    
+    return jsonify(context)
+
+@app.route('/tarea/<id>',methods=['PUT'])
+def update_tarea(id):
+    descripcion = request.json['descripcion']
+    estado = request.json['estado']
+    
+    update_tarea = Tarea.query.get(id)
+    update_tarea.descripcion = descripcion
+    update_tarea.estado = estado
+    db.session.commit()
+    
+    data_schema = TareaSchema()
+    
+    context = {
+        'status':True,
+        'content':data_schema.dump(update_tarea)
+    }
+    
+    return jsonify(context)
+
+@app.route('/tarea/<id>',methods=['DELETE'])
+def delete_tarea(id):
+    del_tarea = Tarea.query.get(id)
+    db.session.delete(del_tarea)
+    db.session.commit()
+    
+    data_schema = TareaSchema()
+    
+    context = {
+        'status':True,
+        'content':data_schema.dump(del_tarea)
     }
     
     return jsonify(context)
