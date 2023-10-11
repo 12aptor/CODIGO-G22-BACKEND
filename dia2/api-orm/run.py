@@ -9,7 +9,8 @@ CORS(app)
 app.app_context().push()
 
 db = SQLAlchemy()
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db_api.db"
+#sqlite:///db_api.db
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:root@localhost:3306/db_api_orm"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
