@@ -20,6 +20,7 @@ class App extends React.Component{
     this.cambioDescripcion = this.cambioDescripcion.bind(this)
     this.guardar = this.guardar.bind(this)
     this.editar = this.editar.bind(this)
+    this.eliminar = this.eliminar.bind(this)
   }
 
   componentDidMount(){
@@ -95,6 +96,17 @@ class App extends React.Component{
     })
   }
 
+  eliminar(cod){
+    axios.delete(`${API_URL}/tarea/`+cod)
+    .then(res=>{
+      console.log("respuesta del servidor delete : ",res.data.content)
+      var temp = this.state.tareas.filter((tarea)=>tarea.id !== res.data.content.id)
+      this.setState({
+        tareas:temp
+      })
+    })
+  }
+
   render(){
     return(
       <Container>
@@ -130,6 +142,10 @@ class App extends React.Component{
                     <Button variant="success"
                      onClick={()=>this.editar(tarea.id,index)}>
                       Editar
+                     </Button>
+                    <Button variant="danger"
+                     onClick={()=>this.eliminar(tarea.id)}>
+                      Eliminar
                      </Button>
                   </td>
                 </tr>
