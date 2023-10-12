@@ -21,6 +21,7 @@ class App extends React.Component{
     this.guardar = this.guardar.bind(this)
     this.editar = this.editar.bind(this)
     this.eliminar = this.eliminar.bind(this)
+    this.completar = this.completar.bind(this)
   }
 
   componentDidMount(){
@@ -107,6 +108,22 @@ class App extends React.Component{
     })
   }
 
+  completar(cod,pos,descripcion){
+    const data = {
+      descripcion:descripcion,
+      estado : 'completado'
+    }
+
+    axios.put(`${API_URL}/tarea/`+cod,data)
+    .then(res=>{
+      var temp = this.state.tareas
+      temp[pos] = res.data.content
+      this.setState({
+        tareas:temp
+      })
+    })
+  }
+
   render(){
     return(
       <Container>
@@ -142,6 +159,10 @@ class App extends React.Component{
                     <Button variant="success"
                      onClick={()=>this.editar(tarea.id,index)}>
                       Editar
+                     </Button>
+                     <Button variant="warning"
+                     onClick={()=>this.completar(tarea.id,index,tarea.descripcion)}>
+                      Completar
                      </Button>
                     <Button variant="danger"
                      onClick={()=>this.eliminar(tarea.id)}>
