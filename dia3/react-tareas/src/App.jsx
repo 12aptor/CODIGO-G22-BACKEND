@@ -2,8 +2,33 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Container,Table,Button,Form} from 'react-bootstrap'
 import axios from 'axios'
+import {API_URL} from './enviroments'
 
 class App extends React.Component{
+
+  constructor(props){
+    super(props)
+    this.state = (
+      {
+        tareas : [],
+        descripcion:'',
+        estado:'pendiente',
+        id:0,
+        pos:null
+      }
+    )
+  }
+
+  componentDidMount(){
+    axios.get(`${API_URL}/tarea`)
+    .then(res=>{
+      console.log(res.data.content)
+      this.setState({
+        tareas : res.data.content
+      })
+    })
+  }
+
   render(){
     return(
       <Container>
@@ -24,6 +49,17 @@ class App extends React.Component{
               <th>Estado</th>
             </tr>
           </thead>
+          <tbody>
+            {this.state.tareas.map((tarea,index)=>{
+              return(
+                <tr key={index}>
+                  <td>{tarea.id}</td>
+                  <td>{tarea.descripcion}</td>
+                  <td>{tarea.estado}</td>
+                </tr>
+              )
+            })}
+          </tbody>
         </Table>
       </Container>
     )

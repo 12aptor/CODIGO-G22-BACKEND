@@ -67,7 +67,7 @@ def get_tarea():
     data_schema = TareaSchema(many=True)
     context = {
         'status':True,
-        'content:':data_schema.dump(data)
+        'content':data_schema.dump(data)
     }
     
     return jsonify(context)
