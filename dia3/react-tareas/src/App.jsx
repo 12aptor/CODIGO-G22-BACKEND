@@ -19,6 +19,7 @@ class App extends React.Component{
     )
     this.cambioDescripcion = this.cambioDescripcion.bind(this)
     this.guardar = this.guardar.bind(this)
+    this.editar = this.editar.bind(this)
   }
 
   componentDidMount(){
@@ -60,6 +61,17 @@ class App extends React.Component{
     })
   }
 
+  editar(cod,index){
+    axios.get(`${API_URL}/tarea/`+cod)
+    .then(res=>{
+      this.setState({
+        descripcion:res.data.content.descripcion,
+        id:res.data.content.id,
+        pos:index
+      })
+    })
+  }
+
   render(){
     return(
       <Container>
@@ -81,6 +93,7 @@ class App extends React.Component{
               <th>Id</th>
               <th>Descripción</th>
               <th>Estado</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -90,6 +103,12 @@ class App extends React.Component{
                   <td>{tarea.id}</td>
                   <td>{tarea.descripcion}</td>
                   <td>{tarea.estado}</td>
+                  <td>
+                    <Button variant="success"
+                     onClick={()=>this.editar(tarea.id,index)}>
+                      Editar
+                     </Button>
+                  </td>
                 </tr>
               )
             })}
