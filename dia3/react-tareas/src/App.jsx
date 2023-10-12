@@ -17,6 +17,8 @@ class App extends React.Component{
         pos:null
       }
     )
+    this.cambioDescripcion = this.cambioDescripcion.bind(this)
+    this.guardar = this.guardar.bind(this)
   }
 
   componentDidMount(){
@@ -29,13 +31,45 @@ class App extends React.Component{
     })
   }
 
+  cambioDescripcion(e){
+    this.setState({
+      descripcion : e.target.value
+    })
+  }
+
+  guardar(e){
+    e.preventDefault()
+    const data = {
+      descripcion : this.state.descripcion,
+      estado : this.state.estado
+    }
+    console.log("enviando al servidor...",data)
+
+    axios.post(`${API_URL}/tarea`,data)
+    .then(res=>{
+      console.log("respuesta del servidor : ",res.data.content)
+      this.state.tareas.push(res.data.content)
+      var temp = this.state.tareas
+      this.setState({
+        tareas:temp,
+        descripcion:'',
+        id:0,
+        pos:null,
+        estado:'pendiente'
+      })
+    })
+  }
+
   render(){
     return(
       <Container>
         <h1>Lista de Tareas</h1>
-        <Form>
+        <Form onSubmit={this.guardar}>
           <Form.Group className="mb-3">
-            <Form.Control type="text"/>
+            <Form.Control type="text"
+             value={this.state.descripcion}
+             onChange={this.cambioDescripcion}
+            />
           </Form.Group>
           <Button variant="primary" type="submit">
             Guardar
