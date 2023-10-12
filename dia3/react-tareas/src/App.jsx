@@ -40,25 +40,47 @@ class App extends React.Component{
 
   guardar(e){
     e.preventDefault()
+
+    let cod = this.state.id
+
     const data = {
       descripcion : this.state.descripcion,
       estado : this.state.estado
     }
     console.log("enviando al servidor...",data)
 
-    axios.post(`${API_URL}/tarea`,data)
-    .then(res=>{
-      console.log("respuesta del servidor : ",res.data.content)
-      this.state.tareas.push(res.data.content)
-      var temp = this.state.tareas
-      this.setState({
-        tareas:temp,
-        descripcion:'',
-        id:0,
-        pos:null,
-        estado:'pendiente'
+    if(cod>0){
+      //actualizar tarea
+      axios.put(`${API_URL}/tarea/`+cod,data)
+      .then(res=>{
+        console.log("respuesta del servidor put :",res.data.content)
+        let indexTarea = this.state.pos
+        var temp = this.state.tareas
+        temp[indexTarea] = res.data.content
+        this.setState({
+          tareas:temp,
+          descripcion:'',
+          pos:null,
+          id:0
+        })
       })
-    })
+    }
+    else{
+      //insertar tarea
+      axios.post(`${API_URL}/tarea`,data)
+      .then(res=>{
+        console.log("respuesta del servidor post : ",res.data.content)
+        this.state.tareas.push(res.data.content)
+        var temp = this.state.tareas
+        this.setState({
+          tareas:temp,
+          descripcion:'',
+          id:0,
+          pos:null,
+          estado:'pendiente'
+        })
+      })
+    }
   }
 
   editar(cod,index){
@@ -66,6 +88,7 @@ class App extends React.Component{
     .then(res=>{
       this.setState({
         descripcion:res.data.content.descripcion,
+        estado:res.data.content.estado,
         id:res.data.content.id,
         pos:index
       })
