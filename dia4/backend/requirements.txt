@@ -1,5 +1,7 @@
 flask
 flask-sqlalchemy
+flask-marshmallow
+marshmallow-sqlalchemy
 Flask-migrate
 mysqlclient
 flask-cors
