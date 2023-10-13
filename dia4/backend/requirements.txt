@@ -3,3 +3,4 @@ flask-sqlalchemy
 Flask-migrate
 mysqlclient
 flask-cors
+python-dotenv
