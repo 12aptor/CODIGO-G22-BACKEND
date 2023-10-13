@@ -1,0 +1,5 @@
+flask
+flask-sqlalchemy
+Flask-migrate
+mysqlclient
+flask-cors
