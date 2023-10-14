@@ -12,10 +12,19 @@ class Categoria(db.Model):
     @staticmethod
     def get_all():
         return Categoria.query.all()
+    
+    @staticmethod
+    def get_by_id(id):
+        return Categoria.query.get(id)
         
     def save(self):
-        db.session.add(self)
-        db.session.commit()       
+        if not self.id:
+            b.session.add(self)
+        db.session.commit() 
+        
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()      
         
         
 class Marca(db.Model):
@@ -26,3 +35,20 @@ class Marca(db.Model):
     
     def __init__(self,nombre):
         self.nombre = nombre
+        
+    @staticmethod
+    def get_all():
+        return Marca.query.all()
+    
+    @staticmethod
+    def get_by_id(id):
+        return Marca.query.get(id)
+        
+    def save(self):
+        if not self.id:
+            b.session.add(self)
+        db.session.commit() 
+        
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()     

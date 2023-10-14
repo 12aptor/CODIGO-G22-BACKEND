@@ -37,5 +37,50 @@ class CategoriaResource(Resource):
         
         return context
         
+class CategoriaDetailResource(Resource):
+    
+    def get(self,id):
+        data = Categoria.get_by_id(id)
+        data_schema = CategoriaSchema()
+        
+        context = {
+            'status':True,
+            'content':data_schema.dump(data)
+        }
+        
+        return context
+    
+    def put(self,id):
+        data = request.get_json()
+        nombre = data['nombre']
+        
+        categoria = Categoria.get_by_id(id)
+        categoria.nombre = nombre
+        categoria.save()
+        
+        data_schema = CategoriaSchema()
+        
+        context = {
+            'status':True,
+            'content':data_schema.dump(categoria)
+        }
+        
+        return context
+    
+    def delete(self,id):
+        
+        categoria = Categoria.get_by_id(id)
+        categoria.delete()
+        
+        data_schema = CategoriaSchema()
+        
+        context = {
+            'status':True,
+            'content':data_schema.dump(categoria)
+        }
+        
+        return context
+        
     
 api.add_resource(CategoriaResource,'/categoria')
+api.add_resource(CategoriaDetailResource,'/categoria/<id>')
