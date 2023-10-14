@@ -9,6 +9,10 @@ class Categoria(db.Model):
     def __init__(self,nombre):
         self.nombre = nombre
         
+    @staticmethod
+    def get_all():
+        return Categoria.query.all()
+        
     def save(self):
         db.session.add(self)
         db.session.commit()       
