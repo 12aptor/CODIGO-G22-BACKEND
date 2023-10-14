@@ -46,7 +46,7 @@ class Marca(db.Model):
         
     def save(self):
         if not self.id:
-            b.session.add(self)
+            db.session.add(self)
         db.session.commit() 
         
     def delete(self):
