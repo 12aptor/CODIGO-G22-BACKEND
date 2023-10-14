@@ -63,6 +63,8 @@ class Producto(db.Model):
     imagen = db.Column(db.String(255))
     categoria_id = db.Column(db.Integer,db.ForeignKey("tbl_categoria.id"))
     marca_id = db.Column(db.Integer,db.ForeignKey("tbl_marca.id"))
+    categoria = db.relationship('Categoria',backref='productos')
+    marca = db.relationship('Marca',backref='productos')
     
     def __init__(self,nombre,precio,imagen,categoria_id,marca_id):
         self.nombre = nombre
