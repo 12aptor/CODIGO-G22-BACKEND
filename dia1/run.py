@@ -29,4 +29,18 @@ def privada():
     }
     return jsonify(context)
 
+@app.route('/token')
+def generar_token():
+    payload = {
+        'id':1
+    }
+    token = create_access_token(payload)
+    
+    context = {
+        'token':token
+    }
+    
+    return jsonify(context)
+
+
 app.run(debug=True)
