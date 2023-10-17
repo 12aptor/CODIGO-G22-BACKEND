@@ -7,10 +7,11 @@ class ProductService{
         this.enpoint = 'producto'
     }
 
-    async getAll(){
-        const response = await axios.get(API_URL+"/"+this.enpoint)
-        const data = await response.data.content
-        return data
+    getAll(){
+        return axios.get(API_URL+"/"+this.enpoint)
+        .then(res=>{
+            return res.data.content
+        })
     }
 }
 
