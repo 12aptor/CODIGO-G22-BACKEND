@@ -7,6 +7,7 @@ function Login(){
         email:'',
         password:''
     })
+    const [errorMessage,setErrorMessage] = useState('')
 
     const navigate = useNavigate()
 
@@ -26,8 +27,14 @@ function Login(){
             UsuarioService.login(userCredentials)
             .then(res=>{
                 console.log(res)
-                localStorage.setItem('token',res.token)
-                navigate('/admin')
+                if(res.status === true){
+                    localStorage.setItem('token',res.token)
+                    navigate('/admin')
+                }else{
+                    console.log(res.message)
+                    setErrorMessage(res.message)
+                }
+                
             })
         }catch{
             console.log("credenciales invalidas")
@@ -48,7 +55,13 @@ function Login(){
             className="form-control"
             onChange={hanlderInputChange}/>
             <button className="btn btn-primary" type="submit">LOGIN</button>
+            {errorMessage !== '' && (
+            <div className='alert alert-danger'>
+                {errorMessage}
+            </div>
+            )}
         </form>
+        
         </>
     )
 }

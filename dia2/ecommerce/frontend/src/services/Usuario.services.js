@@ -15,16 +15,18 @@ class UsuarioService{
     }
 
     login(data){
-        try{
-            return axios.post(API_URL+"/"+this.endpoint+"/login",data)
-            .then(res=>{
-                return res.data
-            })
-        }
-        catch{
-            console.log('error')
-            return false
-        }
+        return axios.post(API_URL+"/"+this.endpoint+"/login",data)
+        .then(res=>{
+            return res.data
+        })
+        .catch(error =>{
+            console.log("error",error.message)
+            return {
+                status:false,
+                message:'credenciales incorrectas'
+            }
+        })
+        
        
     }
 }
