@@ -1,0 +1,9 @@
+flask
+flask-sqlalchemy
+flask-marshmallow
+marshmallow-sqlalchemy
+Flask-migrate
+mysqlclient
+flask-cors
+python-dotenv
+flask-restful
