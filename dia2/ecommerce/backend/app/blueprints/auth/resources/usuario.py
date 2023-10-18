@@ -40,7 +40,8 @@ class UsuarioResource(Resource):
                 'message':str(e),
                 'status':False
             },500
-            
+         
+    @jwt_required()
     def get(self):
         data = Usuario.get_all()
         schema = UsuarioSchema(many=True)
