@@ -1,6 +1,7 @@
 import {createBrowserRouter} from 'react-router-dom'
 import Home from '../pages/Home'
 import Admin from '../pages/Admin'
+import Auth from '../pages/Auth'
 
 const router = createBrowserRouter([
     {
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
     {
         path:'/admin',
         element:<Admin/>
+    },
+    {
+        path:'/login',
+        element:<Auth/>
     }
 ])
 
