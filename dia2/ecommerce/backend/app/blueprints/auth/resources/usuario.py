@@ -2,6 +2,7 @@ from flask_restful import Resource,Api
 from flask import request
 from .. import auth
 from ..models import Usuario
+from ..schemas import UsuarioSchema
 
 from werkzeug.security import (
     generate_password_hash,
@@ -22,9 +23,11 @@ class UsuarioResource(Resource):
             usuario.password=password_hash
             usuario.save()
             
+            schema = UsuarioSchema()
+            
             return{
                 'status':True,
-                'content':''
+                'content':schema.dump(usuario)
             }
             
         except Exception as e:
@@ -32,5 +35,16 @@ class UsuarioResource(Resource):
                 'message':str(e),
                 'status':False
             },500
+            
+    def get(self):
+        data = Usuario.get_all()
+        schema = UsuarioSchema(many=True)
+        
+        context = {
+            'status':True,
+            'content':schema.dump(data)
+        }
+        
+        return context
             
 api.add_resource(UsuarioResource,'/user')
