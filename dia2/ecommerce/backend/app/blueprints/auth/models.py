@@ -17,6 +17,10 @@ class Usuario(db.Model):
     def get_by_id(id):
         return Usuario.query.get(id)
     
+    @staticmethod
+    def get_by_email(email):
+        return Usuario.query.filter_by(email=email).first()
+    
     def save(self):
         if not self.id:
             db.session.add(self)
