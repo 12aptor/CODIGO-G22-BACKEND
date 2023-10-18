@@ -22,6 +22,18 @@ function Login(){
     const handleLogin = (e) =>{
         e.preventDefault()
         console.log(userCredentials)
+        try{
+            UsuarioService.login(userCredentials)
+            .then(res=>{
+                console.log(res)
+                localStorage.setItem('token',res.token)
+                navigate('/admin')
+            })
+        }catch{
+            console.log("credenciales invalidas")
+        }
+        
+        
     }
     return(
         <>
