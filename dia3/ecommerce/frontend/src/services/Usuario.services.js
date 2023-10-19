@@ -5,10 +5,15 @@ class UsuarioService{
 
     constructor(){
         this.endpoint = 'auth'
+        this.token = localStorage.getItem('token')
     }
 
     getAll(){
-        return axios.get(API_URL+"/"+this.endpoint+"/user")
+        return axios.get(API_URL+"/"+this.endpoint+"/user",{
+            headers:{
+                Authorization: `Bearer ${this.token}`
+            }
+        })
         .then(res=>{
             return res.data.content
         })
@@ -29,13 +34,12 @@ class UsuarioService{
     }
 
     async isAuth(){
-        const token = localStorage.getItem('token')
-        if(!token){
+        if(!this.token){
             return false
         }
         return axios.get(API_URL+'/'+this.endpoint+'/verifytoken',{
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${this.token}`
             }
         }).then(res=>{
             console.log(res.data)
