@@ -93,7 +93,7 @@ class TokenResource(Resource):
         verify_jwt_in_request()
         return {
             'status':True,
-             'message':'token valido'
+            'message':'token valido'
         }
         
             

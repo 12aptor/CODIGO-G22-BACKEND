@@ -1,10 +1,17 @@
 import Footer from "../components/Footer"
 import NavBar from "../components/NavBar"
 import UsuarioServices from "../services/Usuario.services"
+import { useNavigate } from 'react-router-dom'
 
 function Admin(){
-    const isAuthenticated = UsuarioServices.isAuth()
-    console.log(isAuthenticated)
+    const navigate = useNavigate()
+    UsuarioServices.isAuth()
+    .then(res=>{
+        console.log(res)
+        if(!res){
+            navigate('/login')
+        }
+    })
     return(
         <>
         <NavBar/>

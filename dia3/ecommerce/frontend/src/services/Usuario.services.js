@@ -28,15 +28,23 @@ class UsuarioService{
         })
     }
 
-    isAuth(){
+    async isAuth(){
         const token = localStorage.getItem('token')
         if(!token){
             return false
         }
-        const payload = token.split(".")[1]
-        const jsonPayload = JSON.parse(window.atob(payload))
-        console.log(jsonPayload)
-        return true
+        return axios.get(API_URL+'/'+this.endpoint+'/verifytoken',{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res=>{
+            console.log(res.data)
+            return true
+        }).catch(error =>{
+            console.log(error.message)
+            return false
+        })
+       
     }
 }
 
