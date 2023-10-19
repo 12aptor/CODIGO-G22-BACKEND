@@ -26,8 +26,17 @@ class UsuarioService{
                 message:'credenciales incorrectas'
             }
         })
-        
-       
+    }
+
+    isAuth(){
+        const token = localStorage.getItem('token')
+        if(!token){
+            return false
+        }
+        const payload = token.split(".")[1]
+        const jsonPayload = JSON.parse(window.atob(payload))
+        console.log(jsonPayload)
+        return true
     }
 }
 

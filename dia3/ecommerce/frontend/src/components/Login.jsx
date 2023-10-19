@@ -22,7 +22,6 @@ function Login(){
 
     const handleLogin = (e) =>{
         e.preventDefault()
-        console.log(userCredentials)
         try{
             UsuarioService.login(userCredentials)
             .then(res=>{

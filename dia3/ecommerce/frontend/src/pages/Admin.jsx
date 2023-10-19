@@ -1,6 +1,10 @@
 import Footer from "../components/Footer"
 import NavBar from "../components/NavBar"
+import UsuarioServices from "../services/Usuario.services"
+
 function Admin(){
+    const isAuthenticated = UsuarioServices.isAuth()
+    console.log(isAuthenticated)
     return(
         <>
         <NavBar/>

@@ -11,7 +11,9 @@ from werkzeug.security import (
 
 from flask_jwt_extended import (
     create_access_token,
-    jwt_required
+    jwt_required,
+    verify_jwt_in_request,
+    get_jwt_identity
 )
 
 api = Api(auth)
@@ -84,5 +86,25 @@ class AuthenticationResource(Resource):
                 'message':str(e)
             },500
             
+class TokenResource(Resource):
+    
+    @jwt_required()
+    def get(self):
+        #token = request.json.get('token')
+        
+        try:
+            verify_jwt_in_request()
+            return {
+                'status':True,
+                'message':'token valido'
+            }
+        except Exception as e:
+            return {
+                'status':False,
+                'content':str(e),
+                'message':'token invalido'
+            }
+            
 api.add_resource(UsuarioResource,'/user')
 api.add_resource(AuthenticationResource,'/login')
+api.add_resource(TokenResource,'/verifytoken')
