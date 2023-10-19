@@ -89,21 +89,13 @@ class AuthenticationResource(Resource):
 class TokenResource(Resource):
     
     @jwt_required()
-    def get(self):
-        #token = request.json.get('token')
+    def get(self): 
+        verify_jwt_in_request()
+        return {
+            'status':True,
+             'message':'token valido'
+        }
         
-        try:
-            verify_jwt_in_request()
-            return {
-                'status':True,
-                'message':'token valido'
-            }
-        except Exception as e:
-            return {
-                'status':False,
-                'content':str(e),
-                'message':'token invalido'
-            }
             
 api.add_resource(UsuarioResource,'/user')
 api.add_resource(AuthenticationResource,'/login')
