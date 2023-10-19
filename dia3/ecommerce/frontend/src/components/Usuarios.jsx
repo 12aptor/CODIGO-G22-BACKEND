@@ -9,6 +9,8 @@ function Usuarios(){
             UsuarioServices.getAll()
             .then(res=>{
                 console.log(res)
+                setListaUsuarios(res)
+
             })
         }
         fechUsuarios()
@@ -25,12 +27,16 @@ function Usuarios(){
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                </tr>
+                {listaUsuarios.length > 0 &&
+                listaUsuarios.map((usuario,index)=>(
+                    <tr key={index}>
+                    <th scope="row">{usuario.id}</th>
+                    <td>{usuario.nombre}</td>
+                    <td>{usuario.email}</td>
+                    <td><input className="form-check-input" type="checkbox" id="gridCheck1" 
+                    checked={usuario.is_admin} /></td>
+                    </tr>
+                ))}
             </tbody>
         </table>
         </>
