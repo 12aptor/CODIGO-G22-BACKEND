@@ -2,7 +2,9 @@ from flask import Blueprint,jsonify
 
 api = Blueprint('api',__name__,url_prefix='/api')
 
-from . import resources
+from .resources import (
+    usuario_resources
+)
 
 @api.route('/')
 def index():

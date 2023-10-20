@@ -1,7 +1,7 @@
 from flask_restful import Resource,Api
-from . import api
+from .. import api
 
-api_res = Api(api)
+api_usuario = Api(api)
 
 class UsuarioResource(Resource):
     
@@ -12,4 +12,4 @@ class UsuarioResource(Resource):
         }
         return context
     
-api_res.add_resource(UsuarioResource,'/usuario')
+api_usuario.add_resource(UsuarioResource,'/usuario')
