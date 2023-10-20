@@ -13,9 +13,13 @@ api_usuario = Api(api)
 class UsuarioResource(Resource):
     
     def get(self):
+        data = Usuario.get_all()
+        schema = UsuarioSchema(many=True)
+        
         context = {
             'status':True,
-            'message':'lista de usuarios'
+            'message':'lista de usuarios',
+            'content':schema.dump(data)
         }
         return context
     
