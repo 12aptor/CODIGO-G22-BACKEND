@@ -1,10 +1,11 @@
 from flask import Flask,jsonify
+from .config import Config
 
 from .api import api
 
 def create_app():
     app = Flask(__name__)
-    
+    app.config.from_object(Config)
     app.register_blueprint(api)
     
     @app.route('/')
