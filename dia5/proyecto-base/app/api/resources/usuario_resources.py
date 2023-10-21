@@ -65,6 +65,40 @@ class UsuarioDetailResource(Resource):
         }
         
         return context
+    
+    def put(self,id):
+        data = request.get_json()
+        nombre = data['nombre']
+        email = data['email']
+        password = generate_password_hash(data['password'])
+        
+        usuario = Usuario.get_by_id(id)
+        usuario.nombre = nombre
+        usuario.email = email
+        usuario.password= password
+        usuario.save()
+        
+        schema = UsuarioSchema()
+        
+        context = {
+            'status':True,
+            'content':schema.dump(usuario)
+        }
+        
+        return context
+    
+    def delete(self,id):
+        usuario = Usuario.get_by_id(id)
+        usuario.delete()
+        
+        schema = UsuarioSchema()
+        
+        context = {
+            'status':True,
+            'content':schema.dump(usuario)
+        }
+        
+        return context
             
 class AuthenticationResource(Resource):
     
