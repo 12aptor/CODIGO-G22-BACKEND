@@ -11,7 +11,9 @@ from werkzeug.security import (
 
 from flask_jwt_extended import (
     create_access_token,
-    jwt_required
+    jwt_required,
+    verify_jwt_in_request,
+    get_jwt_identity
 )
 
 api_usuario = Api(api)
@@ -52,6 +54,18 @@ class UsuarioResource(Resource):
                 'message':str(e)
             },500
             
+class UsuarioDetailResource(Resource):
+    
+    def get(self,id):
+        usuario = Usuario.get_by_id(id)
+        schema = UsuarioSchema()
+        context = {
+            'status':True,
+            'content':schema.dump(usuario)
+        }
+        
+        return context
+            
 class AuthenticationResource(Resource):
     
     def post(self):
@@ -75,6 +89,18 @@ class AuthenticationResource(Resource):
                 'status':False,
                 'message':'contraseña invalida'
             }
+            
+    @jwt_required()
+    def get(self):
+        verify_jwt_in_request()
+        usuario_id = get_jwt_identity()
+        usuario = Usuario.get_by_id(usuario_id)
+        schema = UsuarioSchema()
+        return {
+            'status':True,
+            'content':schema.dump(usuario)
+        }
     
 api_usuario.add_resource(UsuarioResource,'/usuario')
-api_usuario.add_resource(AuthenticationResource,'/login')
+api_usuario.add_resource(UsuarioDetailResource,'/usuario/<id>')
+api_usuario.add_resource(AuthenticationResource,'/auth')
