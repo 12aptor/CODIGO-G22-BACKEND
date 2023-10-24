@@ -15,7 +15,36 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.http import HttpResponse,JsonResponse
+
+#primer vista
+def index(request):
+    return HttpResponse('<h1>Hola Mundo Django</h1>')
+
+#response con json
+def api(request):
+    context = {
+        'status':True,
+        'message':'api rest con django'
+    }
+    
+    return JsonResponse(context)
+
+#paso de parametros
+def saludo(request):
+    nombre = request.GET['nombre']
+    return HttpResponse('<h1>Hola '+ nombre + '</h1>')
+
+#paso de parametros por path
+def suma(request,n1,n2):
+    resultado = n1 + n2
+    return HttpResponse('<h1>El resultado de '+ str(n1) + ' + ' + str(n2) + ' es ' + str(resultado) + '</h1>')
+
 
 urlpatterns = [
+    path('',index),
+    path('api',api),
+    path('saludo',saludo),
+    path('suma/<int:n1>/<int:n2>',suma),
     path('admin/', admin.site.urls),
 ]
