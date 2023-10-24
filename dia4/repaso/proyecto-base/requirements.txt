@@ -1,8 +1,0 @@
-flask
-flask-restful
-python-dotenv
-flask-sqlalchemy
-flask-marshmallow
-marshmallow-sqlalchemy
-Flask-migrate
-mysqlclient
