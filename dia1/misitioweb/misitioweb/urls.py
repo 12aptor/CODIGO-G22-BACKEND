@@ -41,10 +41,28 @@ def suma(request,n1,n2):
     return HttpResponse('<h1>El resultado de '+ str(n1) + ' + ' + str(n2) + ' es ' + str(resultado) + '</h1>')
 
 
+def calculadora(request,ope,n1,n2):
+    if(ope == "suma"):
+        resultado = n1 + n2
+    elif(ope == "resta"):
+        resultado = n1 - n2
+    elif(ope == "multiplicacion"):
+        resultado = n1 * n2
+    else:
+        resultado = "nn"
+        
+    if(resultado != "nn"):
+        calculadora_resultado = f'el resultado es {resultado}'
+    else:
+        calculadora_resultado = 'no hay la operación que buscas'
+        
+    return HttpResponse(f'<h1>{calculadora_resultado}</h1>')
+
 urlpatterns = [
     path('',index),
     path('api',api),
     path('saludo',saludo),
-    path('suma/<int:n1>/<int:n2>',suma),
+    path('sumaprueba/<int:n1>/<int:n2>',suma),
+    path('<ope>/<int:n1>/<int:n2>',calculadora),
     path('admin/', admin.site.urls),
 ]
