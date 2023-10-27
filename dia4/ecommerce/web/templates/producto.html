@@ -37,6 +37,8 @@
             </div>
 
             <div class="prod-cont">
+            <form action="{% url 'web:carritoadd' producto.id %}" method="post">
+                {% csrf_token %}
                 <div class="prod-rating-wrap">
                     <p data-rating="4" class="prod-rating">
                         <i class="rating-ico" title="1"></i><i class="rating-ico" title="2"></i><i class="rating-ico" title="3"></i><i class="rating-ico" title="4"></i><i class="rating-ico" title="5"></i>
@@ -50,10 +52,13 @@
                         {{producto.descripcion}}
                     </p>
                     <div class="prod-add">
-                        <button type="submit" class="button"><i class="icon ion-android-cart"></i> Add to cart</button>
+
+                        <button type="submit" class="button">
+                            <i class="icon ion-android-cart"></i> Agregar al Carrito
+                        </button>
                         <p class="qnt-wrap prod-li-qnt">
                             <a href="#" class="qnt-plus prod-li-plus"><i class="icon ion-arrow-up-b"></i></a>
-                            <input type="text" value="1">
+                            <input type="text" name="cantidad" value="1">
                             <a href="#" class="qnt-minus prod-li-minus"><i class="icon ion-arrow-down-b"></i></a>
                         </p>
                         <div class="prod-li-favorites">
@@ -64,6 +69,7 @@
                         </p>
                     </div>
                 </div>
+            </form>
             </div>
             <p class="prod-badge">
                 <span class="badge-1">TOP SELLER</span>

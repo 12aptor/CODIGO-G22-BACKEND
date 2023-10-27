@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="cont maincont">
-    <h1 class="maincont-ttl">Cart</h1>
+    <h1 class="maincont-ttl">Carrito</h1>
     <ul class="b-crumbs">
         <li><a href="index.html">Home</a></li>
         <li>Cart</li>
@@ -38,6 +38,11 @@
                             <p>Total</p>
                             <p class="prod-li-total">${{value.subtotal}}</p>
                         </div>
+                        <div class="prod-li-total-wrap">
+                            <p class="prod-li-add">
+                                <a href="{% url 'web:carritodel' value.producto_id %}" class="button hover-label prod-addbtn"><i class="icon ion-close-round"></i></a>
+                            </p>
+                        </div>
                     </div><!--
     No Space
     --></div>
@@ -52,7 +57,8 @@
                 <input type="submit" class="button" value="Apply">
             </div>
             <div class="cart-collaterals">
-                <a href="#" class="checkout-button button">Proceed to checkout</a>
+                <a href="{% url 'web:carritoclear' %}" class="checkout-button button">LIMPIAR CARRITO</a> - 
+                <a href="#" class="checkout-button button">COMPRAR</a>
                 <div class="order-total">
                     <p class="cart-totals-ttl">Total</p>
                     <p class="cart-totals-val">$510.00</p>

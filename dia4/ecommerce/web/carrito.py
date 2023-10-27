@@ -36,6 +36,9 @@ class Cart:
             del self.cart[producto_id]
             self.save()
             
+    def clear(self):
+        self.session['cart'] = {}
+            
     def save(self):
         self.session['cart'] = self.cart
         self.session.modified = True
