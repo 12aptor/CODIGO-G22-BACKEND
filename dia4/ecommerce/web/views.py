@@ -69,3 +69,7 @@ def producto(request,producto_id):
     
     return render(request,'producto.html',context)
 
+""" VISTAS PARA CARRITO DE COMPRAS """
+
+def carrito(request):
+    return render(request,'carrito.html')

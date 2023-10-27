@@ -9,5 +9,6 @@ urlpatterns = [
     path('categoria/<int:categoria_id>',views.productos_por_categoria,name='categoria'),
     path('marca/<int:marca_id>',views.productos_por_marca,name='marca'),
     path('buscar',views.productos_por_nombre,name='buscar'),
-    path('producto/<int:producto_id>',views.producto,name='producto')
+    path('producto/<int:producto_id>',views.producto,name='producto'),
+    path('carrito',views.carrito,name='carrito')
 ]
