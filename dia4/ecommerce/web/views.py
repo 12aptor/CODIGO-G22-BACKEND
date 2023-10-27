@@ -70,6 +70,18 @@ def producto(request,producto_id):
     return render(request,'producto.html',context)
 
 """ VISTAS PARA CARRITO DE COMPRAS """
+from .carrito import Cart
 
 def carrito(request):
+    return render(request,'carrito.html')
+
+def agregar_carrito(request,producto_id):
+    cantidad = 1
+    
+    obj_producto = Producto.objects.get(pk=producto_id)
+    carrito = Cart(request)
+    carrito.add(obj_producto,cantidad)
+    
+    print(request.session.get('cart'))
+    
     return render(request,'carrito.html')
