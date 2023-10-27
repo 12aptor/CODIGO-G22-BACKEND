@@ -49,7 +49,7 @@ def productos_por_marca(request,marca_id):
 def productos_por_nombre(request):
     nombre = request.POST['nombre']
     
-    lista_productos = Producto.objects.filter(nombre__contains=nombre)
+    lista_productos = Producto.objects.filter(nombre__icontains=nombre)
     lista_categorias = Categoria.objects.all()
     lista_marcas = Marca.objects.all()
     
@@ -60,4 +60,12 @@ def productos_por_nombre(request):
     }
     
     return render(request,'index.html',context)
+
+def producto(request,producto_id):
+    obj_producto = Producto.objects.get(pk=producto_id)
+    context = {
+        'producto':obj_producto
+    }
+    
+    return render(request,'producto.html',context)
 
