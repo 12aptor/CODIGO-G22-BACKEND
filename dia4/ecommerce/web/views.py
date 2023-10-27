@@ -30,3 +30,34 @@ def productos_por_categoria(request,categoria_id):
     }
     
     return render(request,'index.html',context)
+
+def productos_por_marca(request,marca_id):
+    """ vista para filtrar productos por categoria """
+    obj_marca = Marca.objects.get(pk=marca_id)
+    lista_productos = obj_marca.producto_set.all()
+    lista_categorias = Categoria.objects.all()
+    lista_marcas = Marca.objects.all()
+    
+    context  = {
+        'categorias':lista_categorias,
+        'marcas':lista_marcas,
+        'productos':lista_productos
+    }
+    
+    return render(request,'index.html',context)
+
+def productos_por_nombre(request):
+    nombre = request.POST['nombre']
+    
+    lista_productos = Producto.objects.filter(nombre__contains=nombre)
+    lista_categorias = Categoria.objects.all()
+    lista_marcas = Marca.objects.all()
+    
+    context = {
+        'categorias':lista_categorias,
+        'marcas':lista_marcas,
+        'productos':lista_productos
+    }
+    
+    return render(request,'index.html',context)
+
