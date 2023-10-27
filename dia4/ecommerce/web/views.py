@@ -85,3 +85,10 @@ def agregar_carrito(request,producto_id):
     print(request.session.get('cart'))
     
     return render(request,'carrito.html')
+
+def eliminar_carrito(request,producto_id):
+    obj_producto = Producto.objects.get(pk=producto_id)
+    carrito = Cart(request)
+    carrito.delete(obj_producto)
+    
+    return render(request,'carrito.html')
