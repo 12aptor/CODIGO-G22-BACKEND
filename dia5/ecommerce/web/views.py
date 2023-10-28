@@ -153,3 +153,28 @@ def cuenta_usuario(request):
 def logout_usuario(request):
     logout(request)
     return redirect('/cuenta')
+
+@login_required(login_url='/login')
+def actualizar_cliente(request):
+    frm_cliente = ClienteForm(request.POST)
+    if frm_cliente.is_valid():
+        data_cliente = frm_cliente.cleaned_data
+        usuario = User.objects.get(pk=request.user.id)
+        usuario.first_name = data_cliente['nombre']
+        usuario.last_name = data_cliente['apellidos']
+        usuario.email = data_cliente['email']
+        usuario.save()
+        try:
+            cliente = Cliente.object.get(usuario=request.user)
+        except:
+            cliente = Cliente()
+        cliente.dni = data_cliente['dni']
+        cliente.direccion = data_cliente['direccion']
+        cliente.telefono = data_cliente['telefono']
+        cliente.fecha_nacimiento = data_cliente['fecha_nacimiento']
+        cliente.save()
+        
+    context = {
+        'form':frm_cliente
+    }
+    return render(request,'cuenta.html',context)
