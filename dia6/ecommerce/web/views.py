@@ -246,3 +246,34 @@ def confirmar_pedido(request):
         'form':form
     }
     return render(request,'pedido.html',context)
+
+@login_required(login_url='/login')
+def registrar_pedido(request):
+    if request.method == 'POST':
+        #gestión del usuario y cliente
+        frm_cliente = ClienteForm(request.POST)
+        data_cliente = frm_cliente.cleaned_data
+        #actualizar usuario
+        usuario = User.objects.get(pk=request.user.id)
+        usuario.first_name = data_cliente['nombre']
+        usuario.last_name = data_cliente['apellidos']
+        usuario.email = data_cliente['email']
+        usuario.save()
+        try:
+            cliente = Cliente.objects.get(usuario=usuario)
+            cliente.telefono = data_cliente['telefono']
+            cliente.direccion = data_cliente['direccion']
+            cliente.save()
+        except:
+            cliente = Cliente()
+            cliente.usuario = usuario
+            cliente.direccion = data_cliente['direccion']
+            cliente.telefono = data_cliente['telefono']
+            cliente.save()
+        
+        pedido = Pedido()
+        pedido.cliente = cliente
+        pedido.direccion_envio = data_cliente['direccion']
+        pedido.save()
+        
+    return render(request,'pago.html')
