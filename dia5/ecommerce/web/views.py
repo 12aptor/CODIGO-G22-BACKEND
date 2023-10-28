@@ -110,4 +110,10 @@ from django.contrib.auth.decorators  import login_required
 from .models import Cliente
 
 def crear_usuario(request):
+    if request.method == 'POST':
+        data_usuario = request.POST['usuario']
+        data_password = request.POST['password']
+        
+        usuario = User.objects.create_user(username=data_usuario,password=data_password)
+        
     return render(request,'login.html')
