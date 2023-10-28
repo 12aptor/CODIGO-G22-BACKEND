@@ -139,6 +139,6 @@ def login_usuario(request):
         
     return render(request,'login.html',context)
 
-
+@login_required(login_url='/login')
 def cuenta_usuario(request):
     return render(request,'cuenta.html')
