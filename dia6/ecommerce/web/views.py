@@ -249,7 +249,8 @@ def confirmar_pedido(request):
     }
     return render(request,'pedido.html',context)
 
-from .models import Pedido
+from .models import Pedido,PedidoDetalle
+from datetime import datetime
 @login_required(login_url='/login')
 def registrar_pedido(request):
     context = {}
@@ -278,6 +279,26 @@ def registrar_pedido(request):
         pedido = Pedido()
         pedido.cliente = cliente
         pedido.direccion_envio = data_cliente['direccion']
+        pedido.save()
+        
+        #registrar pedido detalle
+        carrito = Cart(request)
+        for key,value in carrito.cart.items():
+            producto = Producto.objects.get(pk=value['producto_id'])
+            pedido_detalle = PedidoDetalle()
+            pedido_detalle.pedido = pedido
+            pedido_detalle.producto = producto
+            pedido_detalle.cantidad = int(value['cantidad'])
+            pedido_detalle.precio = float(value['precio'])
+            pedido_detalle.subtotal = float(value['subtotal'])
+            pedido_detalle.save()
+        
+        #limpiamos el carrito 
+        carrito.clear()
+        
+        nro_pedido = 'PED' +  str(pedido.id)
+        pedido.nro_pedido = nro_pedido
+        pedido.monto_total = carrito.total
         pedido.save()
         
         context = {
