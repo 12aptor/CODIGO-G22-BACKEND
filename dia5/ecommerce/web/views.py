@@ -142,3 +142,8 @@ def login_usuario(request):
 @login_required(login_url='/login')
 def cuenta_usuario(request):
     return render(request,'cuenta.html')
+
+@login_required(login_url='/login')
+def logout_usuario(request):
+    logout(request)
+    return redirect('/cuenta')

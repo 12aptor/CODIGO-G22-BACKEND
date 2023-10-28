@@ -1,7 +1,8 @@
+{%load static %}
 <div class="site-header">
 
     <p class="h-logo">
-        <a href="index.html"><img src="img/logo.png" alt="MultiShop"></a>
+        <a href="/"><img src="{% static 'img/logo.png' %}" alt="MultiShop"></a>
     </p><!--
 No Space
 --><div class="h-shop">
@@ -14,27 +15,17 @@ No Space
 
     <ul class="h-shop-links">
         <li class="h-search-btn" id="h-search-btn"><i class="ion-search"></i></li>
-        <li class="h-shop-icon h-wishlist">
-            <a title="Wishlist" href="wishlist.html">
-                <i class="ion-heart"></i>
-                <span>5</span>
-            </a>
-        </li>
-        <li class="h-shop-icon h-compare">
-            <a title="Compare List" href="compare.html">
-                <i class="ion-arrow-swap"></i>
-                <span>2</span>
-            </a>
-        </li>
         <li class="h-shop-icon h-profile">
-            <a href="auth.html" title="My Account">
+            <a href="{% url 'web:cuenta' %}" title="Mi cuenta">
                 <i class="ion-android-person"></i>
             </a>
             <ul class="h-profile-links">
-                <li><a href="auth.html">Login / Registration</a></li>
-                <li><a href="cart.html">Cart</a></li>
-                <li><a href="compare.html">Compare</a></li>
-                <li><a href="wishlist.html">Wishlist</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'web:usuariologout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'web:usuariologin' %}">Login / Registration</a></li>
+                {% endif %}
+                <li><a href="{% url 'web:carrito' %}">Carrito de Compras</a></li>
             </ul>
         </li>
 
@@ -87,94 +78,5 @@ No Space
             <i class="ion-navicon"></i> Menu
         </li>
     </ul>
-</div><!--
-No Space
---><div class="mainmenu">
-
-    <nav id="h-menu" class="h-menu">
-        <ul>
-            <li class="menu-item-has-children">
-                <a href="index.html">Home</a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="index.html">Home 1</a>
-                    </li>
-                    <li>
-                        <a href="index-2.html">Home 2</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item-has-children active">
-                <a href="catalog-gallery.html">Shop</a>
-                <ul class="sub-menu">
-                    <li class="active">
-                        <a href="catalog-gallery.html">Catalog - Gallery</a>
-                    </li>
-                    <li>
-                        <a href="catalog-list.html">Catalog - List</a>
-                    </li>
-                    <li>
-                        <a href="catalog-gallery-full.html">Catalog - No Sidebar</a>
-                    </li>
-                    <li>
-                        <a href="product.html">Product Page</a>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="cart.html">Shop Pages</a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="cart.html">Cart</a>
-                            </li>
-                            <li>
-                                <a href="wishlist.html">Wishlist</a>
-                            </li>
-                            <li>
-                                <a href="compare.html">Compare</a>
-                            </li>
-                            <li>
-                                <a href="auth.html">Login</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="elements.html">Elements</a>
-            </li>
-            <li class="menu-item-has-children">
-                <a href="blog.html">Blog</a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="blog.html">Blog Posts</a>
-                    </li>
-                    <li>
-                        <a href="post.html">Standard Post</a>
-                    </li>
-                    <li>
-                        <a href="post-slider.html">Slider Post</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item-has-children">
-                <a href="about.html">Pages</a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="about.html">About Us</a>
-                    </li>
-                    <li>
-                        <a href="contacts.html">Contacts</a>
-                    </li>
-                    <li>
-                        <a href="gallery.html">Gallery</a>
-                    </li>
-                    <li>
-                        <a href="404.html">Error 404</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-</div><!--
-No Space
---></div>
+</div>
+</div>
