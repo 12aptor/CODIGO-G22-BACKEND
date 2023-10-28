@@ -101,3 +101,13 @@ def limpiar_carrito(request):
     carrito.clear()
     
     return render(request,'carrito.html')
+
+""" VISTAS PARA CLIENTES """
+
+from django.contrib.auth.models import User
+from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.decorators  import login_required
+from .models import Cliente
+
+def crear_usuario(request):
+    return render(request,'login.html')
