@@ -19,5 +19,5 @@ urlpatterns = [
     path('login',views.login_usuario,name='usuariologin'),
     path('logout',views.logout_usuario,name='usuariologout'),
     path('cliente/update',views.actualizar_cliente,name='clienteupdate'),
-    path('pedido',views.registrar_pedido,name='pedido')
+    path('pedido',views.confirmar_pedido,name='pedido')
 ]

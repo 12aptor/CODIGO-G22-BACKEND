@@ -13,6 +13,7 @@
                     <h2>Login</h2>
                     <form method="post" class="login" action="{% url 'web:usuariologin' %}">
                         {% csrf_token %}
+                        <input type="hidden" name="destino" value="{{destino}}"/>
                         <p>
                             <label for="username">E-mail <span class="required">*</span></label>
                             <input type="text" id="username" name="usuario">
@@ -35,6 +36,7 @@
                     <h2>Registrarse</h2>
                     <form method="post" class="register" action="{% url 'web:usuarioadd' %}">
                         {% csrf_token %}
+                        <input type="hidden" name="destino" value="{{destino}}"/>
                         <p>
                             <label for="reg_email">Email <span class="required">*</span></label>
                             <input type="text" id="reg_email" name="usuario">

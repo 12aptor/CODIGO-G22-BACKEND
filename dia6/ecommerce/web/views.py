@@ -111,26 +111,42 @@ from .models import Cliente
 from django.shortcuts import redirect
 
 def crear_usuario(request):
+    pagina_destino = request.GET.get('next',None)
+    context = {
+        'destino':pagina_destino
+    }
     if request.method == 'POST':
         data_usuario = request.POST['usuario']
         data_password = request.POST['password']
+        data_destino = request.POST['destino']
+        
         
         usuario = User.objects.create_user(username=data_usuario,password=data_password)
         if usuario is not None:
             login(request,usuario)
+            if data_destino != 'None':
+                return redirect(data_destino)
+            
             return redirect('/cuenta')
         
     return render(request,'login.html')
 
 def login_usuario(request):
-    context = {}
+    pagina_destino = request.GET.get('next',None)
+    context = {
+        'destino':pagina_destino
+    }
     if request.method == 'POST':
         data_usuario = request.POST['usuario']
         data_password = request.POST['password']
+        data_destino = request.POST['destino']
         
         usuario = authenticate(request,username=data_usuario,password=data_password)
         if usuario is not None:
             login(request,usuario)
+            if data_destino != 'None':
+                return redirect(data_destino)
+            
             return redirect('/cuenta')
         else:
             context = {
@@ -205,7 +221,7 @@ def actualizar_cliente(request):
     return render(request,'cuenta.html',context)
 
 @login_required(login_url='/login')
-def registrar_pedido(request):
+def confirmar_pedido(request):
     try:
         cliente = Cliente.objects.get(usuario=request.user)
         
