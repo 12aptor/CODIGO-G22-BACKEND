@@ -122,5 +122,23 @@ def crear_usuario(request):
         
     return render(request,'login.html')
 
+def login_usuario(request):
+    context = {}
+    if request.method == 'POST':
+        data_usuario = request.POST['usuario']
+        data_password = request.POST['password']
+        
+        usuario = authenticate(request,username=data_usuario,password=data_password)
+        if usuario is not None:
+            login(request,usuario)
+            return redirect('/cuenta')
+        else:
+            context = {
+                'mensaje_error':'Datos incorrectos'
+            }
+        
+    return render(request,'login.html',context)
+
+
 def cuenta_usuario(request):
     return render(request,'cuenta.html')
