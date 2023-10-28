@@ -139,9 +139,15 @@ def login_usuario(request):
         
     return render(request,'login.html',context)
 
+from .forms import ClienteForm
+
 @login_required(login_url='/login')
 def cuenta_usuario(request):
-    return render(request,'cuenta.html')
+    form = ClienteForm()
+    context = {
+        'form':form
+    }
+    return render(request,'cuenta.html',context)
 
 @login_required(login_url='/login')
 def logout_usuario(request):
