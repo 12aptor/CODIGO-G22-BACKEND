@@ -143,7 +143,26 @@ from .forms import ClienteForm
 
 @login_required(login_url='/login')
 def cuenta_usuario(request):
-    form = ClienteForm()
+    try:
+        cliente = Cliente.objects.get(usuario=request.user)
+        
+        data_cliente = {
+            'nombre':request.user.first_name,
+            'apellidos':request.user.last_name,
+            'email':request.user.email,
+            'direccion':cliente.direccion,
+            'telefono':cliente.telefono,
+            'dni':cliente.dni,
+            'fecha_nacimiento':cliente.fecha_nacimiento
+        }
+    except:
+        data_cliente = {
+            'nombre':request.user.first_name,
+            'apellidos':request.user.last_name,
+            'email':request.user.email
+        }
+        
+    form = ClienteForm(data_cliente)
     context = {
         'form':form
     }
@@ -156,6 +175,7 @@ def logout_usuario(request):
 
 @login_required(login_url='/login')
 def actualizar_cliente(request):
+    mensaje_confirmacion = ""
     frm_cliente = ClienteForm(request.POST)
     if frm_cliente.is_valid():
         data_cliente = frm_cliente.cleaned_data
@@ -165,18 +185,21 @@ def actualizar_cliente(request):
         usuario.email = data_cliente['email']
         usuario.save()
         try:
-            cliente = Cliente.object.get(usuario=request.user)
-        except:
+            cliente = Cliente.objects.get(usuario=usuario)
+        except Exception as error:
+            print("error : ",error)
             cliente = Cliente()
             cliente.usuario = usuario
-            
+        
         cliente.dni = data_cliente['dni']
         cliente.direccion = data_cliente['direccion']
         cliente.telefono = data_cliente['telefono']
         cliente.fecha_nacimiento = data_cliente['fecha_nacimiento']
         cliente.save()
+        mensaje_confirmacion = "DATOS ACTUALIZADOS"
         
     context = {
-        'form':frm_cliente
+        'form':frm_cliente,
+        'mensaje':mensaje_confirmacion
     }
     return render(request,'cuenta.html',context)
