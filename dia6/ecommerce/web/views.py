@@ -247,11 +247,15 @@ def confirmar_pedido(request):
     }
     return render(request,'pedido.html',context)
 
+from .models import Pedido
 @login_required(login_url='/login')
 def registrar_pedido(request):
+    context = {}
     if request.method == 'POST':
+        print("metodo")
         #gestión del usuario y cliente
         frm_cliente = ClienteForm(request.POST)
+        print(frm_cliente)
         data_cliente = frm_cliente.cleaned_data
         #actualizar usuario
         usuario = User.objects.get(pk=request.user.id)
@@ -276,4 +280,8 @@ def registrar_pedido(request):
         pedido.direccion_envio = data_cliente['direccion']
         pedido.save()
         
-    return render(request,'pago.html')
+        context = {
+            'pedido':pedido
+        }
+        
+    return render(request,'pago.html',context)
