@@ -140,6 +140,7 @@ def login_usuario(request):
         data_usuario = request.POST['usuario']
         data_password = request.POST['password']
         data_destino = request.POST['destino']
+        print(data_destino)
         
         usuario = authenticate(request,username=data_usuario,password=data_password)
         if usuario is not None:
@@ -150,7 +151,8 @@ def login_usuario(request):
             return redirect('/cuenta')
         else:
             context = {
-                'mensaje_error':'Datos incorrectos'
+                'mensaje_error':'Datos incorrectos',
+                'destino':data_destino
             }
         
     return render(request,'login.html',context)
@@ -252,11 +254,9 @@ from .models import Pedido
 def registrar_pedido(request):
     context = {}
     if request.method == 'POST':
-        print("metodo")
+        print("metodo post")
         #gestión del usuario y cliente
-        frm_cliente = ClienteForm(request.POST)
-        print(frm_cliente)
-        data_cliente = frm_cliente.cleaned_data
+        data_cliente = request.POST
         #actualizar usuario
         usuario = User.objects.get(pk=request.user.id)
         usuario.first_name = data_cliente['nombre']
@@ -274,7 +274,7 @@ def registrar_pedido(request):
             cliente.direccion = data_cliente['direccion']
             cliente.telefono = data_cliente['telefono']
             cliente.save()
-        
+    
         pedido = Pedido()
         pedido.cliente = cliente
         pedido.direccion_envio = data_cliente['direccion']
