@@ -203,3 +203,30 @@ def actualizar_cliente(request):
         'mensaje':mensaje_confirmacion
     }
     return render(request,'cuenta.html',context)
+
+@login_required(login_url='/login')
+def registrar_pedido(request):
+    try:
+        cliente = Cliente.objects.get(usuario=request.user)
+        
+        data_cliente = {
+            'nombre':request.user.first_name,
+            'apellidos':request.user.last_name,
+            'email':request.user.email,
+            'direccion':cliente.direccion,
+            'telefono':cliente.telefono,
+            'dni':cliente.dni,
+            'fecha_nacimiento':cliente.fecha_nacimiento
+        }
+    except:
+        data_cliente = {
+            'nombre':request.user.first_name,
+            'apellidos':request.user.last_name,
+            'email':request.user.email
+        }
+        
+    form = ClienteForm(data_cliente)
+    context = {
+        'form':form
+    }
+    return render(request,'pedido.html',context)
