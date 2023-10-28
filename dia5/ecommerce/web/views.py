@@ -108,6 +108,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators  import login_required
 from .models import Cliente
+from django.shortcuts import redirect
 
 def crear_usuario(request):
     if request.method == 'POST':
@@ -115,5 +116,11 @@ def crear_usuario(request):
         data_password = request.POST['password']
         
         usuario = User.objects.create_user(username=data_usuario,password=data_password)
+        if usuario is not None:
+            login(request,usuario)
+            return redirect('/cuenta')
         
     return render(request,'login.html')
+
+def cuenta_usuario(request):
+    return render(request,'cuenta.html')
