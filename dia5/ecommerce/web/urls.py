@@ -17,5 +17,6 @@ urlpatterns = [
     path('usuario/add',views.crear_usuario,name='usuarioadd'),
     path('cuenta',views.cuenta_usuario,name='cuenta'),
     path('login',views.login_usuario,name='usuariologin'),
-    path('logout',views.logout_usuario,name='usuariologout')
+    path('logout',views.logout_usuario,name='usuariologout'),
+    path('cliente/update',views.actualizar_cliente,name='clienteupdate')
 ]

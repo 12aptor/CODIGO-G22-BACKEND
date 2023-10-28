@@ -168,6 +168,8 @@ def actualizar_cliente(request):
             cliente = Cliente.object.get(usuario=request.user)
         except:
             cliente = Cliente()
+            cliente.usuario = usuario
+            
         cliente.dni = data_cliente['dni']
         cliente.direccion = data_cliente['direccion']
         cliente.telefono = data_cliente['telefono']

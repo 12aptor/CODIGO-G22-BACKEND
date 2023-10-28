@@ -7,7 +7,7 @@
             <div class="auth-wrap">
                 <div class="auth-col">
                     <h2>Datos del Cliente</h2>
-                    <form method="post" class="login">
+                    <form method="post" class="login" action="{% url 'web:clienteupdate' %}">
                         {% csrf_token %}
                         {{form}}
                         <p class ="auth-submit">
