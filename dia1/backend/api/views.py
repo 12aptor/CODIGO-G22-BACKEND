@@ -18,6 +18,10 @@ def tarea(request):
     if request.method == 'GET':
         data = Tarea.objects.all() #queryset
         serializer = TareaSerializer(data,many=True)
+    elif request.method == 'POST':
+        serializer = TareaSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         
     context = {
         'status':True,
