@@ -317,6 +317,7 @@ def registrar_pedido(request):
 
         # Create the instance.
         paypal_form = PayPalPaymentsForm(initial=paypal_dict)
+        request.session['pedido_id'] = pedido.id
         
         context = {
             'pedido':pedido,
@@ -325,5 +326,13 @@ def registrar_pedido(request):
         
     return render(request,'pago.html',context)
 
+@login_required(login_url='/login')
 def pedido_pagado(request):
-    return render(request,'pedidopagado.html')
+    context = {}
+    pedido = Pedido.objects.get(pk=request.session.get('pedido_id'))
+    pedido.estado = 'P'
+    pedido.save()
+    context = {
+        'pedido':pedido
+    }
+    return render(request,'pedidopagado.html',context)

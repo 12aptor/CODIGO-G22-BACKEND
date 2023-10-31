@@ -7,9 +7,9 @@
             <div class="auth-wrap">
                 <div class="auth-col">
                     <h2>Datos de Pedido</h2>
-                    <p>Nro Pedido : </p>
-                    <p>Fecha : </p>
-                    <p>Cliente : </p>
+                    <p>Nro Pedido : {{pedido.nro_pedido}}</p>
+                    <p>Fecha : {{pedido.fecha_registro}}</p>
+                    <p>Cliente : {{pedido.cliente.usuario.first_name}} {{pedido.cliente.usuario.last_name}}</p>
                 </div>
             </div>
         </div>
