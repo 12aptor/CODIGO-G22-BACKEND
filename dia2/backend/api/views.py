@@ -71,6 +71,7 @@ class TareaDetailView(APIView):
         
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
+    
     def delete(self,request,pk):
         obj_tarea = self.get_object(pk)
         serializer = TareaSerializer(obj_tarea)
@@ -83,4 +84,19 @@ class TareaDetailView(APIView):
         obj_tarea.delete()
         
         return Response(context)
+    
+    def patch(self,request,pk):
+        obj_tarea = self.get_object(pk)
+        obj_tarea.estado = request.data['estado']
+        obj_tarea.save()
+        
+        serializer = TareaSerializer(obj_tarea)
+        
+        context = {
+            'status':True,
+            'content':serializer.data
+        }
+        
+        return Response(context)
+        
         
