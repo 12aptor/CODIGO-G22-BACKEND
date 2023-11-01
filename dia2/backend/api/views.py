@@ -1,5 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from .models import Tarea
+from .serializers import TareaSerializer
 
 class IndexView(APIView):
     
@@ -9,3 +11,17 @@ class IndexView(APIView):
             'content':'api rest activo'
         }
         return Response(context)
+    
+class TareaView(APIView):
+    
+    def post(self,request):
+        serializer = TareaSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        
+        context = {
+            'status':True,
+            'content':serializer.data
+        }
+        return Response(context)
+    
