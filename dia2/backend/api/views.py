@@ -25,3 +25,14 @@ class TareaView(APIView):
         }
         return Response(context)
     
+    def get(self,request):
+        queryset = Tarea.objects.all()
+        serializer = TareaSerializer(queryset,many=True)
+        
+        context = {
+            'status':True,
+            'content':serializer.data
+        }
+        
+        return Response(context)
+    
