@@ -36,3 +36,51 @@ class TareaView(APIView):
         
         return Response(context)
     
+from django.http import Http404
+from rest_framework import status
+
+class TareaDetailView(APIView):
+    
+    def get_object(self,pk):
+        try:
+            return Tarea.objects.get(pk=pk)
+        except  Tarea.DoesNotExist:
+            raise Http404
+
+    def get(self,request,pk):
+        obj_tarea = self.get_object(pk)
+        serializer = TareaSerializer(obj_tarea)
+        context = {
+            'status':True,
+            'content':serializer.data
+        }
+        
+        return Response(context)
+    
+    def put(self,request,pk):
+        obj_tarea = self.get_object(pk)
+        serializer = TareaSerializer(obj_tarea,data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            context = {
+                'status':True,
+                'content':serializer.data
+            }
+            return Response(context)
+        
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self,request,pk):
+        obj_tarea = self.get_object(pk)
+        serializer = TareaSerializer(obj_tarea)
+        
+        context = {
+            'status':True,
+            'content':serializer.data
+        }
+        
+        obj_tarea.delete()
+        
+        return Response(context)
+        
