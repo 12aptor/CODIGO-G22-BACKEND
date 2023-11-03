@@ -13,6 +13,9 @@ class Category(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_category'
+        
+    def __str__(self):
+        return self.name
 
 
 class Company(models.Model):
