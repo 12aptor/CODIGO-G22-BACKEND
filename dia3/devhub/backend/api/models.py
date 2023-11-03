@@ -67,7 +67,7 @@ class CandidateExperience(models.Model):
     description = models.TextField(blank=True, null=True)
     date_start = models.DateField()
     date_end = models.DateField(blank=True, null=True)
-    candidate = models.ForeignKey(TblCandidate, models.DO_NOTHING)
+    candidate = models.ForeignKey(Candidate, models.DO_NOTHING)
     company = models.ForeignKey('Company', models.DO_NOTHING)
 
     class Meta:
@@ -76,7 +76,7 @@ class CandidateExperience(models.Model):
 
 
 class CandidateSkill(models.Model):
-    candidate = models.ForeignKey(TblCandidate, models.DO_NOTHING)
+    candidate = models.ForeignKey(Candidate, models.DO_NOTHING)
     skill = models.ForeignKey('Skill', models.DO_NOTHING)
 
     class Meta:
@@ -90,7 +90,7 @@ class CandidateStudy(models.Model):
     description = models.TextField(blank=True, null=True)
     date_start = models.DateField()
     date_end = models.DateField(blank=True, null=True)
-    candidate = models.ForeignKey(TblCandidate, models.DO_NOTHING)
+    candidate = models.ForeignKey('Candidate', models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -104,9 +104,9 @@ class Job(models.Model):
     created_date = models.DateField(blank=True, null=True)
     vacancies = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    company = models.ForeignKey(TblCompany, models.DO_NOTHING)
+    company = models.ForeignKey(Company, models.DO_NOTHING)
     type = models.ForeignKey('Type', models.DO_NOTHING)
-    category = models.ForeignKey(TblCategory, models.DO_NOTHING)
+    category = models.ForeignKey(Category, models.DO_NOTHING)
     location = models.ForeignKey('Location', models.DO_NOTHING)
     status = models.IntegerField()
     experience_year = models.IntegerField()
@@ -119,8 +119,8 @@ class Job(models.Model):
 class JobApply(models.Model):
     date_apply = models.DateField()
     status = models.IntegerField()
-    job = models.ForeignKey(TblJob, models.DO_NOTHING)
-    candidate = models.ForeignKey(TblCandidate, models.DO_NOTHING)
+    job = models.ForeignKey(Job, models.DO_NOTHING)
+    candidate = models.ForeignKey('Candidate', models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -129,7 +129,7 @@ class JobApply(models.Model):
 
 class JobSkill(models.Model):
     id = models.IntegerField(primary_key=True)
-    job = models.ForeignKey(TblJob, models.DO_NOTHING)
+    job = models.ForeignKey(Job, models.DO_NOTHING)
     skill = models.ForeignKey('Skill', models.DO_NOTHING)
 
     class Meta:
