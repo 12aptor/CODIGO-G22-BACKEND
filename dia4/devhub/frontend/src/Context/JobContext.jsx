@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { jobs } from '../Data/JobsData';
+import { getAllJobs } from '../services/job.services';
 
 const JobContext = createContext();
 
@@ -47,6 +48,16 @@ const JobContextProvider = ({ children }) => {
   }, []);
 // Jobs Filter
 const [filteredJobs, setFilteredJobs] = useState(jobs);
+
+//consumo de api rest
+useEffect(()=>{
+  const fetchData = async () => {
+    const response = await getAllJobs()
+    console.log(response.data)
+    setFilteredJobs(response.data)
+  }
+  fetchData()
+},[])
 
   const filterJobsByTime = (selectedTimes) => {
     if (selectedTimes.length === 0) {
