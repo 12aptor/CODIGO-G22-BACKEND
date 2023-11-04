@@ -1,11 +1,12 @@
 from rest_framework import generics
 
 from .models import (
-    Category,Company,Location)
+    Category,Company,Location,
+    Candidate)
 
 from .serializers import (
     CategorySerializer,CompanySerializer,
-    LocationSerializer
+    LocationSerializer,CandidateSerializer
 )
 
 class CategoryView(generics.ListCreateAPIView):
@@ -24,3 +25,7 @@ class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
 class LocationView(generics.ListCreateAPIView):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
+    
+class CandidateView(generics.ListCreateAPIView):
+    queryset = Candidate.objects.all()
+    serializer_class = CandidateSerializer

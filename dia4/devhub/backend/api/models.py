@@ -24,6 +24,9 @@ class Company(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_company'
+    
+    def __str__(self):
+        return self.name
 
 
 class Location(models.Model):
@@ -32,6 +35,9 @@ class Location(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_location'
+        
+    def __str__(self):
+        return self.name
 
 
 class Skill(models.Model):
@@ -41,6 +47,8 @@ class Skill(models.Model):
         managed = False
         db_table = 'tbl_skill'
 
+    def __str__(self):
+        return self.name
 
 class Type(models.Model):
     name = models.CharField(max_length=200)
@@ -48,6 +56,9 @@ class Type(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_type'
+        
+    def __str__(self):
+        return self.name
         
         
 class Candidate(models.Model):
@@ -62,6 +73,9 @@ class Candidate(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_candidate'
+        
+    def __str__(self):
+        return self.name
 
 
 class CandidateExperience(models.Model):
