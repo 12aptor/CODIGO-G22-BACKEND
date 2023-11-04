@@ -29,3 +29,25 @@ class LocationView(generics.ListCreateAPIView):
 class CandidateView(generics.ListCreateAPIView):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
+    
+""" endpoint para subir imagenes """
+from rest_framework.parsers import MultiPartParser,JSONParser
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+import cloudinary.uploader
+
+class UploadCandidateImageView(APIView):
+    parser_classes = (
+        MultiPartParser,
+        JSONParser
+    )
+    
+    @staticmethod
+    def post(request):
+        file = request.data.get('candidate_img')
+        upload_data = cloudinary.uploader.upload(file)
+        context = {
+            'image_url':upload_data['url']
+        }
+        return Response(context,status=201)
