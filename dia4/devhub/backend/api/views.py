@@ -2,11 +2,12 @@ from rest_framework import generics
 
 from .models import (
     Category,Company,Location,
-    Candidate)
+    Candidate,Skill)
 
 from .serializers import (
     CategorySerializer,CompanySerializer,
-    LocationSerializer,CandidateSerializer
+    LocationSerializer,CandidateSerializer,
+    SkillSerializer
 )
 
 class CategoryView(generics.ListCreateAPIView):
@@ -51,3 +52,11 @@ class UploadCandidateImageView(APIView):
             'image_url':upload_data['url']
         }
         return Response(context,status=201)
+    
+    
+""" viewsets """
+from rest_framework import viewsets
+
+class SkillView(viewsets.ModelViewSet):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
