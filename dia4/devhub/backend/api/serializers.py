@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from .models import (
     Category,Company,Location,
-    Candidate,Skill
+    Candidate,Skill,Type,Job
 )
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -28,4 +28,14 @@ class CandidateSerializer(serializers.ModelSerializer):
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
+        fields = '__all__'
+        
+class TypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Type
+        fields = '__all__'
+        
+class JobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job
         fields = '__all__'

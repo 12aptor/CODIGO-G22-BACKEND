@@ -57,7 +57,7 @@ class Type(models.Model):
         
 class Candidate(models.Model):
     name = models.CharField(max_length=200)
-    image = CloudinaryField('image',default='')
+    image = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=200)
     experience_year = models.IntegerField()
     location = models.ForeignKey('Location', models.DO_NOTHING)
@@ -108,7 +108,7 @@ class CandidateStudy(models.Model):
 
 
 class Job(models.Model):
-    image = models.CharField(max_length=200, blank=True, null=True)
+    image = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=200)
     salary = models.FloatField()
     created_date = models.DateField(blank=True, null=True)

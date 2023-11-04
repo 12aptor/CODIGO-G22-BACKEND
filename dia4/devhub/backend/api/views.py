@@ -2,12 +2,12 @@ from rest_framework import generics
 
 from .models import (
     Category,Company,Location,
-    Candidate,Skill)
+    Candidate,Skill,Type,Job)
 
 from .serializers import (
     CategorySerializer,CompanySerializer,
     LocationSerializer,CandidateSerializer,
-    SkillSerializer
+    SkillSerializer,TypeSerializer,JobSerializer
 )
 
 class CategoryView(generics.ListCreateAPIView):
@@ -30,6 +30,15 @@ class LocationView(generics.ListCreateAPIView):
 class CandidateView(generics.ListCreateAPIView):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
+
+class JobView(generics.ListCreateAPIView):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+    
+class JobDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Job.objects.all()
+    lookup_url_kwarg = 'job_id'
+    serializer_class = JobSerializer
     
 """ endpoint para subir imagenes """
 from rest_framework.parsers import MultiPartParser,JSONParser
@@ -38,7 +47,7 @@ from rest_framework.response import Response
 
 import cloudinary.uploader
 
-class UploadCandidateImageView(APIView):
+class UploadImageView(APIView):
     parser_classes = (
         MultiPartParser,
         JSONParser
@@ -46,12 +55,13 @@ class UploadCandidateImageView(APIView):
     
     @staticmethod
     def post(request):
-        file = request.data.get('candidate_img')
+        file = request.data.get('image')
         upload_data = cloudinary.uploader.upload(file)
         context = {
             'image_url':upload_data['url']
         }
         return Response(context,status=201)
+    
     
     
 """ viewsets """
@@ -60,3 +70,8 @@ from rest_framework import viewsets
 class SkillView(viewsets.ModelViewSet):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
+    
+class TypeView(viewsets.ModelViewSet):
+    queryset = Type.objects.all()
+    serializer_class = TypeSerializer
+    
