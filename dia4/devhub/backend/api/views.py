@@ -1,10 +1,11 @@
 from rest_framework import generics
 
 from .models import (
-    Category,Company)
+    Category,Company,Location)
 
 from .serializers import (
-    CategorySerializer,CompanySerializer
+    CategorySerializer,CompanySerializer,
+    LocationSerializer
 )
 
 class CategoryView(generics.ListCreateAPIView):
@@ -19,3 +20,7 @@ class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
     lookup_url_kwarg = 'company_id'
     serializer_class = CompanySerializer
+    
+class LocationView(generics.ListCreateAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
