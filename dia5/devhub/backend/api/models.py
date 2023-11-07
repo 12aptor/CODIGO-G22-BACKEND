@@ -141,7 +141,8 @@ class JobApply(models.Model):
 
 
 class JobSkill(models.Model):
-    job = models.ForeignKey(Job, models.DO_NOTHING)
+    job = models.ForeignKey(Job,related_name='skills',
+                            on_delete=models.RESTRICT)
     skill = models.ForeignKey('Skill', models.DO_NOTHING)
 
     class Meta:

@@ -8,7 +8,7 @@ from .serializers import (
     CategorySerializer,CompanySerializer,
     LocationSerializer,CandidateSerializer,
     SkillSerializer,TypeSerializer,JobSerializer,
-    JobSkillSerializer
+    JobSkillSerializer,JobListSerializer
 )
 
 class CategoryView(generics.ListCreateAPIView):
@@ -44,6 +44,10 @@ class JobDetailView(generics.RetrieveUpdateDestroyAPIView):
 class JobSkillView(generics.ListCreateAPIView):
     queryset = JobSkill.objects.all()
     serializer_class = JobSkillSerializer
+    
+class JobListView(generics.ListAPIView):
+    queryset = Job.objects.all()
+    serializer_class = JobListSerializer
     
 """ endpoint para subir imagenes """
 from rest_framework.parsers import MultiPartParser,JSONParser
