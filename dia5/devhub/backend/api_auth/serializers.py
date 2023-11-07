@@ -19,4 +19,16 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
     
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class LoginSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls,user):
+        token = super().get_token(user)
+        
+        token['username'] = user.username
+        token['fullname'] = user.first_name + ' ' + user.last_name
+        
+        return token
+    
         
