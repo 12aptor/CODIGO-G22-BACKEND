@@ -124,6 +124,9 @@ class Job(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_job'
+        
+    def __str__(self):
+        return self.title
 
 
 class JobApply(models.Model):
@@ -138,7 +141,6 @@ class JobApply(models.Model):
 
 
 class JobSkill(models.Model):
-    id = models.IntegerField(primary_key=True)
     job = models.ForeignKey(Job, models.DO_NOTHING)
     skill = models.ForeignKey('Skill', models.DO_NOTHING)
 

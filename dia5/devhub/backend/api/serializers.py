@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from .models import (
     Category,Company,Location,
-    Candidate,Skill,Type,Job
+    Candidate,Skill,Type,Job,JobSkill
 )
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -44,4 +44,15 @@ class JobSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         representation['company_name'] = instance.company.name
         representation['location_name'] = instance.location.name
+        return representation
+    
+class JobSkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobSkill
+        fields = '__all__'
+        
+    def to_representation(self,instance):
+        representation = super().to_representation(instance)
+        representation['skill_name'] = instance.skill.name
+        representation['job_name'] = instance.job.title
         return representation

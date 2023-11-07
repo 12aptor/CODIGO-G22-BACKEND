@@ -18,4 +18,5 @@ urlpatterns = [
     path('upload/image',views.UploadImageView.as_view()),
     path('job',views.JobView.as_view()),
     path('job/<int:job_id>',views.JobDetailView.as_view()),
+    path('job/skill',views.JobSkillView.as_view())
 ]
