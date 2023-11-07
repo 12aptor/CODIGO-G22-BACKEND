@@ -78,3 +78,29 @@ class JobListSerializer(serializers.ModelSerializer):
         representation['company_name'] = instance.company.name
         representation['location_name'] = instance.location.name
         return representation
+    
+class JobSkillCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobSkill
+        fields = ['skill']
+        
+class JobCreateSerializer(serializers.ModelSerializer):
+    skills = JobSkillCreateSerializer(many=True)
+    class Meta:
+        model = Job
+        fields = ['image','title','salary','company','type',
+                  'category','location','status',
+                  'experience_year','skills']
+        
+    def to_representation(self,instance):
+        representation = super().to_representation(instance)
+        representation['company_name'] = instance.company.name
+        representation['location_name'] = instance.location.name
+        return representation
+    
+    def create(self,validated_data):
+        lista_skills = validated_data.pop('skills')
+        job = Job.objects.create(**validated_data)
+        for skill in lista_skills:
+            JobSkill.objects.create(job=job,**skill)
+        return job
