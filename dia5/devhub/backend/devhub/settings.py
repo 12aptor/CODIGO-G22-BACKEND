@@ -150,3 +150,12 @@ cloudinary.config(
 )
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "TOKEN_OBTAIN_SERIALIZER": "api_auth.serializers.LoginSerializer",
+    "TOKEN_REFRESH_SERIALIZER": "api_auth.serializers.LoginSerializer"
+}
