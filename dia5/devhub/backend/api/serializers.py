@@ -39,3 +39,9 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = '__all__'
+        
+    def to_representation(self,instance):
+        representation = super().to_representation(instance)
+        representation['company_name'] = instance.company.name
+        representation['location_name'] = instance.location.name
+        return representation

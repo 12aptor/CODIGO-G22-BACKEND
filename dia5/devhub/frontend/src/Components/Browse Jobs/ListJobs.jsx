@@ -18,7 +18,7 @@ const ListJobs = () => {
                                 </div>
                                 <div className="jm-latest-job-item-info-3">
                                     <h3 className="jm-latest-job-item-info-title-3"><Link to="/jobDetailsPage">{job.title}</Link></h3>
-                                    <Link to="#" className="jm-latest-job-item-info-subtitle-3">{job.company}</Link>
+                                    <Link to="#" className="jm-latest-job-item-info-subtitle-3">{job.company_name}</Link>
                                     <div className="jm-latest-job-meta-wrapper">
                                         <Link to="#">Technology</Link>
                                         <Link to="#">WordPress</Link>
@@ -31,13 +31,10 @@ const ListJobs = () => {
                         </div>
                         <div className="jm-latest-job-item-bottom-3">
                             <div className="jm-latest-job-item-location-3 jm-latest-job-common">
-                                <span><i className="fa-thin fa-location-dot"></i>{job.location}</span>
+                                <span><i className="fa-thin fa-location-dot"></i>{job.location_name}</span>
                             </div>
                             <div className="jm-latest-job-item-salary-3 jm-latest-job-common">
                                 <span><i className="fa-thin fa-money-bill-1"></i>${job.salary}</span>
-                            </div>
-                            <div className="jm-latest-job-item-duration-3 jm-latest-job-common">
-                                <span><i className="fa-thin fa-clock"></i>{job.create_date}</span>
                             </div>
                         </div>
                     </div>
