@@ -5,3 +5,4 @@ django-cors-headers
 cloudinary
 djangorestframework-simplejwt
 drf-yasg
+python-decouple
