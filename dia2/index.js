@@ -1,10 +1,32 @@
 const express = require('express')
+const mysqlConnection = require('./database')
 
 const app = express()
+app.use(express.json())
 
 app.get('/',(req,res)=>{
     res.send('<h1><center>Mi primer servidor con express.js</center></h1>')
 })
+
+app.post('/tarea',(req,res)=>{
+    const {descripcion,estado} = req.body
+    const query = `insert into tarea(descripcion,estado)
+                   values('${descripcion}','${estado}')`
+
+    mysqlConnection.query(query,(err,rows,fields)=>{
+        if(!err){
+            res.json({
+                'status':true,
+                'content':'registro exitoso'
+            })
+        }else{
+            console.log(err)
+        }
+    })
+})
+
+
+
 
 app.get('/json',(req,res)=>{
     res.json({

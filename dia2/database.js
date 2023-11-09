@@ -16,3 +16,5 @@ mysqlConnection.connect(function(err){
         console.log('conectado a bd')
     }
 })
+
+module.exports = mysqlConnection
