@@ -25,6 +25,19 @@ app.post('/tarea',(req,res)=>{
     })
 })
 
+app.get('/tarea',(req,res)=>{
+    mysqlConnection.query('select * from tarea',(err,rows,fields)=>{
+        if(!err){
+            res.json({
+                'status':true,
+                'content':rows
+            })
+        }else{
+            console.log(err)
+        }
+    })
+})
+
 
 
 
