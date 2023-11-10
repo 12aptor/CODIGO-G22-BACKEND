@@ -32,6 +32,9 @@ class MysqlLib{
     }
 }
 
+module.exports = MysqlLib
+
+/*
 db = new MysqlLib()
 db.querySql("select * from tbl_product")
-.then((result)=>console.log(result))
+.then((result)=>console.log(result))*/
