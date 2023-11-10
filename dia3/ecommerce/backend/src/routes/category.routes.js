@@ -28,6 +28,20 @@ function categoryApi(app){
             console.log(err)
         }
     })
+
+    router.get('/:id',async function(req,res){
+        const {id} = req.params
+        try{
+            const data = await objCategory.getById(id)
+            if(data.length > 0){
+                res.status(201).json(data[0])
+            }else{
+                res.status(204).json()
+            }
+        }catch(err){
+            console.log(err)
+        }
+    })
 }
 
 module.exports = categoryApi
