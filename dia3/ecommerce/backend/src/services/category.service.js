@@ -40,6 +40,12 @@ class CategoryService{
         return result
     }
 
+    async delete(id){
+        const queryDelete = `delete from tbl_category where id=${id}`
+        await this.db.querySql(queryDelete)
+        return true
+    }
+
 }
 
 module.exports = CategoryService

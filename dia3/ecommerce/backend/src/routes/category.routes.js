@@ -58,6 +58,23 @@ function categoryApi(app){
             console.log(err)
         }
     })
+
+    router.delete('/:id',async function(req,res){
+        const {id} = req.params
+
+        try{
+            const result = await objCategory.delete(id)
+            if(result){
+                res.status(201).json({
+                    'message':'registro eliminado'
+                })
+            }else{
+                res.status(204).json()
+            }
+        }catch(err){
+            console.log(err)
+        }
+    })
 }
 
 module.exports = categoryApi
