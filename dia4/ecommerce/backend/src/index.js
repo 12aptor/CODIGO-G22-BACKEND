@@ -1,6 +1,7 @@
 const express = require('express')
 const {config} = require('./config')
 const boom = require('@hapi/boom')
+const cors = require('cors')
 
 const categoryApi = require('./routes/category.routes')
 const userApi = require('./routes/user.routes')
@@ -9,6 +10,7 @@ const userApi = require('./routes/user.routes')
 const {errorHandler,boomErrorHandler} = require('./middlewares/error.handler')
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 app.get('/',(req,res)=>{
