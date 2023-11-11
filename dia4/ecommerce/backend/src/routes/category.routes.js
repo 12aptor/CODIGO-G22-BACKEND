@@ -2,6 +2,7 @@ const express = require('express')
 const CategoryService = require('../services/category.service')
 const validatorHandler = require('../middlewares/validator.handler')
 const {categorySchema} = require('../schemas/category.schema')
+const {verifyToken} = require('../middlewares/auth.handler')
 
 function categoryApi(app){
     const router = express.Router()
@@ -9,7 +10,7 @@ function categoryApi(app){
 
     const objCategory = new CategoryService()
 
-    router.get('/',async function(req,res){
+    router.get('/',verifyToken,async function(req,res){
         try{
             const data = await objCategory.getAll()
             res.status(200).json(data)
@@ -21,6 +22,7 @@ function categoryApi(app){
     })
 
     router.post('/',
+        verifyToken,
         validatorHandler(categorySchema,'body')
         ,async function(req,res){
         const {body: data} = req
