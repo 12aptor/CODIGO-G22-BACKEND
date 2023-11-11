@@ -31,7 +31,7 @@ class UserService{
         }
         try{
             const query = `select id,username,password
-                           from tbl_user where username = ${data.username}`
+                           from tbl_user where username = '${data.username}'`
 
             const result = await this.db.querySql(query)
             if(await bcrypt.compare(data.password,result[0].password)){
@@ -44,7 +44,7 @@ class UserService{
                return userNotFound
             }
         }catch(err){
-              return userNotFound
+              console.log(err)
         }
     }
 }
