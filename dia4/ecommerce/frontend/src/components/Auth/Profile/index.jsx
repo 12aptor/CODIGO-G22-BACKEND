@@ -22,8 +22,18 @@ import ProfileTab from "./tabs/ProfileTab";
 import ReviewTab from "./tabs/ReviewTab";
 import SupportTab from "./tabs/SupportTab";
 import WishlistTab from "./tabs/WishlistTab";
+import { isAuth,logout } from "../../../services/authServices";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    const isAuthenticated = isAuth()
+    if (!isAuthenticated) return navigate('/login')
+  },[])
+  
   const [switchDashboard, setSwitchDashboard] = useState(false);
   const location = useLocation();
   const getHashContent = location.hash.split("#");
@@ -35,6 +45,7 @@ export default function Profile() {
         : "dashboard"
     );
   }, [getHashContent]);
+
   return (
     <Layout childrenClasses="pt-0 pb-0">
       <div className="profile-page-wrapper w-full">
@@ -182,8 +193,10 @@ export default function Profile() {
                           <span>
                             <IcoLogout />
                           </span>
-                          <span className=" font-normal text-base">
-                            Logoout
+                          <span className=" font-normal text-base"
+                          onClick={logout}
+                          >
+                            Logout
                           </span>
                         </div>
                       </Link>
