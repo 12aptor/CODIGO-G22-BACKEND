@@ -1,9 +1,12 @@
 const express = require('express')
+var morgan = require('morgan')
 
 const app = express()
 
 /************ MIDDLEWARES ***********/
+app.use(express.static('public'))
 
+app.use(morgan('combined'))
 //MIDDLEWARES DE APLICACIÓN
 app.use(function(req,res,next){
     console.log("eso es un middleware")
@@ -27,12 +30,19 @@ app.use('/usuario',(req,res,next)=>{
 })
 
 app.get('/usuario',(req,res)=>{
+    //console.log(a + 3)
     res.json({
         nombre:'admin',
         email:'admin@gmail.com'
     })
 })
 
-
+//MIDDLEWARES DE ERRORES
+app.use(function(err,req,res,next){
+    console.error(err.stack)
+    res.status(500).json({
+        'message':'ocurrio un error inesperado'
+    })
+})
 
 app.listen(5000,()=>console.log('http://localhost:5000'))
