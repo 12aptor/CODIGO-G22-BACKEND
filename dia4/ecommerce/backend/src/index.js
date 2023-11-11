@@ -12,7 +12,7 @@ app.use(express.json())
 
 app.get('/',(req,res)=>{
     try{
-        console.log(a + 3)
+        //console.log(a + 3)
         res.json({
             'status':true,
             'message':'api rest version 1.0'
