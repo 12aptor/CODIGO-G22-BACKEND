@@ -3,6 +3,7 @@ const {config} = require('./config')
 const boom = require('@hapi/boom')
 
 const categoryApi = require('./routes/category.routes')
+const userApi = require('./routes/user.routes')
 
 //middlewares
 const {errorHandler,boomErrorHandler} = require('./middlewares/error.handler')
@@ -23,6 +24,7 @@ app.get('/',(req,res)=>{
 })
 
 categoryApi(app)
+userApi(app)
 
 app.use(boomErrorHandler)
 app.use(errorHandler)
