@@ -45,6 +45,7 @@ class UserService{
             }
         }catch(err){
               console.log(err)
+              return userNotFound
         }
     }
 }

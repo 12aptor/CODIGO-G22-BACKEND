@@ -2,7 +2,7 @@ const express = require('express')
 const UserService = require('../services/user.service')
 const boom = require('@hapi/boom')
 const jwt = require('jsonwebtoken')
-
+const {config} = require('../config')
 
 function userApi(app){
     const router = express.Router()
@@ -28,9 +28,9 @@ function userApi(app){
         if(auth.id > 0){
             const token = jwt.sign(
                 auth,
-                'qwerty123',
+                config.jwt_secret,
                 {
-                  expiresIn:'1m'
+                  expiresIn:'5m'
                 }
             )
             res.status(200).json({
