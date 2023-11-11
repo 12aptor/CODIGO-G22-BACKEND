@@ -4,6 +4,7 @@ import Layout from "../../Partials/Layout";
 import Thumbnail from "./Thumbnail";
 import { Link } from "react-router-dom";
 import { signIn } from "../../../services/authServices";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [checked, setValue] = useState(false);
@@ -14,6 +15,9 @@ export default function Login() {
     username:"",
     password:""
   })
+  const [errorMessage,setErrorMessage] = useState('')
+
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     const {name,value} = e.currentTarget
@@ -29,8 +33,10 @@ export default function Login() {
     if(response.status === 200){
       localStorage.setItem('token',response.data.token)
       console.log('token : ',response.data.token)
+      navigate('/profile')
     }else{
       console.log("credenciales incorrectas")
+      setErrorMessage('Credenciales Incorrectas')
     }
   }
 
@@ -94,6 +100,11 @@ export default function Login() {
                     </div>
                     <div className="forgot-password-area flex justify-between items-center mb-7">
                       <div className="remember-checkbox flex items-center space-x-2.5">
+                        <span
+                          className="text-base text-black"
+                        >
+                          {errorMessage}
+                        </span>
                         <button
                           onClick={rememberMe}
                           type="button"
