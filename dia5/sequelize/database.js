@@ -18,6 +18,9 @@ const Tarea = sequelize.define(
     }
 )
 
+module.exports = {sequelize,Tarea}
+
+/*
 sequelize.sync()
 .then(()=>{
     console.log("tabla creada")
@@ -27,4 +30,4 @@ sequelize.sync()
             {descripcion:'tarea dos',estado:'terminado'}
         ]
     )
-})
+})*/
