@@ -5,6 +5,7 @@ const cors = require('cors')
 
 const categoryApi = require('./routes/category.routes')
 const userApi = require('./routes/user.routes')
+const productApi = require('./routes/product.routes')
 
 //middlewares
 const {errorHandler,boomErrorHandler} = require('./middlewares/error.handler')
@@ -27,6 +28,7 @@ app.get('/',(req,res)=>{
 
 categoryApi(app)
 userApi(app)
+productApi(app)
 
 app.use(boomErrorHandler)
 app.use(errorHandler)
