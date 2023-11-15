@@ -4,3 +4,6 @@
      "start":"node index.js",
     "dev": "nodemon index.js",
 
+comandos prisma:
+#1 npx prisma init
+#2 npx prisma db pull
