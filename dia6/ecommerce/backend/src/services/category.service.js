@@ -28,8 +28,9 @@ class CategoryService{
     }
 
     async getById(id){
-        const query = `select id,name from tbl_category where id = '${id}'`
-        const result = await this.db.querySql(query)
+        //const query = `select id,name from tbl_category where id = '${id}'`
+        //const result = await this.db.querySql(query)
+        const result = await models.Category.findByPk(id,{ include:'products'})
         return result
     }
 

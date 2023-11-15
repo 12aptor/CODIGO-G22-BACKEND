@@ -39,11 +39,12 @@ function categoryApi(app){
         const {id} = req.params
         try{
             const data = await objCategory.getById(id)
-            if(data.length > 0){
+            res.status(200).json(data)
+            /*if(data.length > 0){
                 res.status(201).json(data[0])
             }else{
                 res.status(204).json()
-            }
+            }*/
         }catch(err){
             console.log(err)
         }
