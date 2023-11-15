@@ -25,6 +25,12 @@ class ProductService{
         const result = await productUpdate.update(data)
         return result
     }
+
+    async delete(id){
+        const productDelete = await this.findOne(id)
+        await productDelete.destroy()
+        return true
+    }
 }
 
 module.exports = ProductService
