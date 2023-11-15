@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import productDatas from "../../data/products.json";
 import BreadcrumbCom from "../BreadcrumbCom";
 import ProductCardStyleOne from "../Helpers/Cards/ProductCardStyleOne";
 import DataIteration from "../Helpers/DataIteration";
 import Layout from "../Partials/Layout";
 import ProductsFilter from "./ProductsFilter";
+import { getAllProducts } from "../../services/productService";
+import ProductCard from "../Helpers/Cards/ProductCard";
 
 export default function AllProductPage() {
   const [filters, setFilter] = useState({
@@ -50,7 +52,15 @@ export default function AllProductPage() {
   };
   const [filterToggle, setToggle] = useState(false);
 
-  const { products } = productDatas;
+  //const { products } = productDatas;
+  const [products,setProducts] = useState(productDatas)
+
+  useEffect(()=>{
+    getAllProducts().then((response)=>{
+      console.log(response)
+      setProducts(response)
+    })
+  },[])
 
   return (
     <>
@@ -132,13 +142,12 @@ export default function AllProductPage() {
                   </button>
                 </div>
                 <div className="grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1  xl:gap-[30px] gap-5 mb-[40px]">
-                  <DataIteration datas={products} startLength={0} endLength={6}>
-                    {({ datas }) => (
-                      <div data-aos="fade-up" key={datas.id}>
-                        <ProductCardStyleOne datas={datas} />
+                  {products.length > 0 &&
+                   products.map((product,index)=>(
+                    <div key={index}>
+                        <ProductCard product={product} />
                       </div>
-                    )}
-                  </DataIteration>
+                   ))}
                 </div>
 
                 <div className="w-full h-[164px] overflow-hidden mb-[40px]">
