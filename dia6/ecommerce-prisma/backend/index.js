@@ -43,4 +43,13 @@ app.put('/categories/:id',async(req,res)=>{
     res.json(data)
 })
 
+app.delete('/categories/:id',async(req,res)=>{
+    const data = await prisma.tbl_category.delete({
+        where:{
+            id:parseInt(req.params.id)
+        }
+    })
+    res.sendStatus(201)
+})
+
 app.listen(5000,()=>console.log('http://localhost:5000'))
