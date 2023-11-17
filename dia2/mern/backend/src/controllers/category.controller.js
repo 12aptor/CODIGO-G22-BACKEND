@@ -16,3 +16,5 @@ categoryController.create = async (req,res)=>{
         })
     }
 }
+
+module.exports = categoryController
