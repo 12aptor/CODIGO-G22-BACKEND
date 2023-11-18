@@ -32,7 +32,7 @@ const CourseCard = ({ course, withModal, Container = Link, setCourses }) => {
           handleDelete={handleClickDelete}
           course={course}
           className="card-container"
-          to={`/course/${course.id}`}
+          to={`/course/${course._id}`}
         >
           <header className="card__header">
             <img

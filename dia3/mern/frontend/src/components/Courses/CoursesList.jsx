@@ -7,7 +7,7 @@ import CourseCard from "./CourseCard";
 
 const CoursesList = ({ category, filters, isValid }) => {
   const { loading, courses, getCourses } = useCourses(
-    `http://127.0.0.1:5000/curso`
+    `http://127.0.0.1:5000/course`
   );
   const [coursesFiltered, setCoursesFiltered] = useState([]);
 
@@ -66,7 +66,7 @@ const CoursesList = ({ category, filters, isValid }) => {
           className="cards"
         >
           {coursesFiltered.map((course) => (
-            <CourseCard key={course.id} course={course} />
+            <CourseCard key={course._id} course={course} />
           ))}
         </motion.div>
       )}
