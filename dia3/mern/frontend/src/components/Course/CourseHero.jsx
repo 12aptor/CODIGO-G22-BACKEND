@@ -5,19 +5,21 @@ import getStars from "../../utils/getStars";
 import Stars from "../shared/Stars";
 
 const CourseHero = ({ course }) => {
-  const category = course.category?.replace("-", " ");
-  const stars = getStars(course);
+  //const category = course.category?.replace("-", " ");
+  const category = "all"
+  const stars = 5
+  //const stars = getStars(course);
   return (
     <article
       style={{
-        backgroundImage: `url(${course.banner || course.img})`,
+        backgroundImage: `https://img.freepik.com/free-vector/matrix-style-binary-code-digital-falling-numbers-blue-background_1017-37387.jpg`,
       }}
       className="hero"
     >
       <div className="hero-container">
         <img
           className="hero__img"
-          src={course.banner || course.img}
+          src={course.img || course.img}
           alt={`Previus ${course.title} course`}
         />
         <h3 className="hero__subtitle">{category}</h3>
@@ -25,12 +27,12 @@ const CourseHero = ({ course }) => {
         <p className="hero__paragraph">{course.description}</p>
         <ul className="menu menu--features">
           <li className="menu__item hero__stars">
-            <span className="hero__stars__score">{course.stars}</span>
-            <Stars stars={stars} className="menu--stars-hero" />
+            <span className="hero__stars__score">5</span>
+            
           </li>
           <li className="menu__item menu__item--views">
             <BsFillPeopleFill size={20} />
-            <span>{course.lectures} views</span>
+            <span>100 views</span>
           </li>
         </ul>
         <ul className="menu menu--features menu--course-hero">

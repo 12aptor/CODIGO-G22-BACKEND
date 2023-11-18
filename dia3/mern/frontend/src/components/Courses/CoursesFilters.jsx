@@ -27,8 +27,8 @@ const CoursesFilters = ({ category: categoryName, className }) => {
           optionClassName="menu__item menu__item--categories"
           options={categories
             .map((category) => ({
-              child: category["categoria_descripcion"],
-              value: category["categoria_descripcion"],
+              child: category["name"],
+              value: category["_id"],
             }))
             ?.map((category) => {
               search.set("category", category.value);
