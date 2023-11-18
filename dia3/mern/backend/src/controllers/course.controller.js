@@ -27,4 +27,15 @@ courseController.getOne = async (req,res)=>{
     res.json(course)
 }
 
+courseController.updateOne = async (req,res)=>{
+    await courseModel.findByIdAndUpdate(req.params.id,req.body)
+    const course = await courseModel.findById(req.params.id)
+    res.json(course)
+}
+
+courseController.deleteOne = async(req,res)=>{
+    await courseModel.findByIdAndDelete(req.params.id)
+    res.sendStatus(202)
+}
+
 module.exports = courseController
