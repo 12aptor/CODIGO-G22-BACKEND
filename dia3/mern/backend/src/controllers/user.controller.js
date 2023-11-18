@@ -3,6 +3,9 @@ const userController = {}
 const bcrypt = require('bcryptjs')
 const userModel = require('../models/user.model')
 
+const {config} = require('../config')
+const jwt = require('jsonwebtoken')
+
 userController.create = async (req,res)=>{
     try{
         const hash = await bcrypt.hash(req.body.password,10)
@@ -20,4 +23,31 @@ userController.create = async (req,res)=>{
     }
 }
 
+userController.auth = async (req,res)=>{
+    try{
+        dataEmail = req.body.email
+        dataPassword = req.body.password
+
+        const userAuth = await userModel.findOne({email:dataEmail})
+        if(await bcrypt.compare(dataPassword,userAuth.password)){
+            const token = jwt.sign({
+                _id:userAuth.id,
+                email:userAuth.email,
+                isAdmin:userAuth.isAdmin
+            },config.jwt_secret,
+            { expiresIn : '5m'})
+            res.status(200).json({
+                'token':token
+            })
+        }else{
+            res.status(404).json({
+                message:'datos invalidos'
+            })
+        }
+    }catch(err){
+        res.status(502).json({
+            message:err
+        })
+    }
+}
 module.exports = userController
