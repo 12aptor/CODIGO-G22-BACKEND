@@ -17,4 +17,14 @@ courseController.create = async (req,res)=>{
     }
 }
 
+courseController.getAll = async (req,res)=>{
+    const courses = await courseModel.find()
+    res.json(courses)
+}
+
+courseController.getOne = async (req,res)=>{
+    const course = await courseModel.findById(req.params.id)
+    res.json(course)
+}
+
 module.exports = courseController
