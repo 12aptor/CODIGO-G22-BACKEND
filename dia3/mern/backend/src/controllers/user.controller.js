@@ -23,6 +23,22 @@ userController.create = async (req,res)=>{
     }
 }
 
+userController.getOne = async (req,res)=>{
+    try{
+        const user = await userModel.findById(req.params.id)
+        res.json({
+            id:user._id,
+            email:user.email,
+            isAdmin:user.isAdmin
+        })
+    }catch(err){
+        res.status(502).json({
+            message:err
+        })
+    }
+}
+
+
 userController.auth = async (req,res)=>{
     try{
         dataEmail = req.body.email
