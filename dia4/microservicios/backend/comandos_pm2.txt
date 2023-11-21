@@ -12,3 +12,13 @@ pm2 monit
 
 5 - detener servicio
 pm2 stop indice_servicio
+
+6 - eliminar servicio
+pm2 delete indice_servicio
+
+
+7 - crear archivo de configuración
+pm2 init simple
+
+8 - desplegar con ecosystem
+pm2 start ecosystem.config.js
