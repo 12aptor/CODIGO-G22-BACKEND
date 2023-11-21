@@ -1,0 +1,14 @@
+1 - instalar pm2
+npm install pm2 -g
+
+2 - para listas servicios
+pm2 list
+
+3 - para iniciar un servicio
+pm2 start src/microservices/ms-auth/index.js
+
+4 - para monitorear servicios
+pm2 monit
+
+5 - detener servicio
+pm2 stop indice_servicio
