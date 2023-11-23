@@ -1,0 +1,9 @@
+### comandos iniciales
+sudo apt update
+
+
+### Instalar nvm en ubuntu
+sudo apt install curl
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+source ~/.bashrc
+nvm install v16.16.0
