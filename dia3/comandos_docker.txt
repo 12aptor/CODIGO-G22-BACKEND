@@ -38,3 +38,7 @@ docker exec -it nginx-codigo //bin//sh
 docker volume ls
 docker volume create web
 docker run -d --rm -p 80:80 -v c:/html:/usr/share/nginx/html --name nginx-codigo nginx:alpine
+
+######### PARA CREAR IMAGEN CON DOCKERFILE Y EJECUTAR CONTENEDOR #####
+docker build -t python-web:1.0 .
+docker run  -d --rm -p 80:5000 --name webpy python-web:1.0
