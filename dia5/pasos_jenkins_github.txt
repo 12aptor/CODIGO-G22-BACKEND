@@ -1,3 +1,7 @@
+prueba de docker con jenkins
+sudo docker run -d --rm -p 80:80 --name mi-nginx nginx:1.25.3-alpine-slim
+
+
 - github webhook
 
 http://tuippublica:8080/github-webhook/
